@@ -1,5 +1,5 @@
 //
-//  MovieSearchViewController.swift
+//  MovieSearchListViewController.swift
 //  ensembleMoviesInOMDB
 //
 //  Created by Lucas C Barros on 2024-04-30.
@@ -7,8 +7,9 @@
 
 import UIKit
 
-class MovieSearchViewController: UIViewController {
+class MovieSearchListViewController: UIViewController {
     // MARK: Views
+    let headerView = UIView()
     let searchTextField = UITextField()
     let searchButton = UIButton()
     
@@ -31,29 +32,47 @@ class MovieSearchViewController: UIViewController {
               !searchText.isEmpty else { return }
         
         NetworkManager.shared.searchMovieWith(title: searchText, completion: { response in
-            
+            switch response {
+            case .success(let search):
+                self.movies = search.movies
+            case.failure(let error):
+                print(error.localizedDescription)
+            }
+            DispatchQueue.main.async {
+                self.movieTableView.reloadData()
+            }
         })
     }
     
     @objc func tapToggleSearchFeatureButton() {
-        navigationItem.rightBarButtonItem?.title = shouldSearch ? "Search" : "Hide"
-        searchButton.isHidden = shouldSearch
-        searchTextField.isHidden = shouldSearch
+        
+        searchButton.slideY(y: shouldSearch ? -30 : 100)
+        searchTextField.slideY(y: shouldSearch ? -30 : 100)
+        movieTableView.slideY(y: shouldSearch ? 0 : searchButton.frame.origin.y+30+25)
+        
+        navigationItem.rightBarButtonItem?.title = shouldSearch ? "Search" : "Hide search"
         shouldSearch.toggle()
     }
 }
 
-extension MovieSearchViewController: ViewCodable {
+extension MovieSearchListViewController: ViewCodable {
     func addHierarchy() {
         self.view.addSubviews([
             searchTextField,
             searchButton,
-        movieTableView])
+            movieTableView,
+            headerView,])
     }
     
     func addConstraints() {
+        headerView
+            .topToSuperview()
+            .bottomToTop(of: searchTextField)
+            .widthToSuperview()
+            .backgroundColor = .white
+        
         searchTextField
-            .topToSuperview(100)
+            .topToSuperview(toSafeArea: true)
             .leadingToSuperview(25)
             .heightTo(30)
         
@@ -68,11 +87,11 @@ extension MovieSearchViewController: ViewCodable {
             .topToBottom(of: searchTextField, margin: 25)
             .centerHorizontalToSuperView()
             .widthToSuperview(-50)
-            .heightTo(300)
+            .bottomToSuperview()
     }
     
     func additionalConfig() {
-        searchTextField.placeholder = "Placeholder"
+        searchTextField.placeholder = "Search movie by title"
         searchTextField.textColor = .blue
         searchTextField.autocapitalizationType = .none
         searchTextField.leftViewMode = .always
@@ -91,8 +110,10 @@ extension MovieSearchViewController: ViewCodable {
         
         movieTableView.dataSource = self
         movieTableView.delegate = self
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Hide",
+
+        self.title = "Movies list"
+        self.navigationController?.navigationBar.backgroundColor = .white
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Hide search",
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(tapToggleSearchFeatureButton))
@@ -101,22 +122,21 @@ extension MovieSearchViewController: ViewCodable {
     }
 }
 
-extension MovieSearchViewController: UITableViewDelegate, UITableViewDataSource {
+extension MovieSearchListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = "\(indexPath.row)"
-        cell.backgroundColor = .systemMint
+        cell.textLabel?.text = movies[indexPath.row].title // "\(indexPath.row)"
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewController = MovieDetailViewController()
         viewController.modalPresentationStyle = .fullScreen
-//        viewController.movie = movies[indexPath.row]
+        viewController.movie = movies[indexPath.row]
         self.navigationController?.pushViewController(viewController, animated: true)
     }
 }

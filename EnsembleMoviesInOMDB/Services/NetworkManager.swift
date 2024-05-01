@@ -48,8 +48,26 @@ class NetworkManager: NetworkManagerProtocol {
         }.resume()
     }
     
-    func searchMovieWith(title: String, completion: @escaping (Result<Movie, FetchError>) -> Void ) {
-        
+    func searchMovieWith(title: String, completion: @escaping (Result<Search, FetchError>) -> Void ) {
+        guard let url = URL(string: Constants.baseAPIurl+"&s=\(title)") else { return }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if error != nil {
+                completion(.failure(FetchError.invalidResponse))
+                return }
+            guard let data = data else {
+                completion(.failure(FetchError.invalidData))
+                return }
+            
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                let search = try jsonDecoder.decode(Search.self, from: data)
+                completion(.success(search))
+            } catch {
+                completion(.failure(FetchError.invalidJsonParse))
+            }
+        }.resume()
     }
     
     // Fetch method 1 for specific movie

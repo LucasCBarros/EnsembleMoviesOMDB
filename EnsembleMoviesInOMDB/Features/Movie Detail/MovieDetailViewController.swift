@@ -23,10 +23,8 @@ enum Constants {
 
 class MovieDetailViewController: UIViewController {
     // MARK: Views
-    let searchTextField = UITextField()
     let movieTitle = UILabel()
     let movieReleasedDate = UILabel()
-    let searchButton = UIButton()
     let moviePosterView = UIImageView()
     
     // MARK: Properties
@@ -75,49 +73,20 @@ class MovieDetailViewController: UIViewController {
     }
     
     // MARK: Actions
-    @objc func tapSearchButton() {
-        guard let searchText = searchTextField.text,
-              !searchText.isEmpty else { return }
-        
-        NetworkManager.shared.searchMovieWith(title: searchText, completion: { response in
-            
-        })
-    }
-    
-    @objc func tapToggleSearchFeatureButton() {
-        navigationItem.rightBarButtonItem?.title = shouldSearch ? "Search" : "Hide"
-        searchButton.isHidden = shouldSearch
-        searchTextField.isHidden = shouldSearch
-        shouldSearch.toggle()
-    }
 }
 
 // MARK: Setup UI
 extension MovieDetailViewController: ViewCodable {
     func addHierarchy() {
         self.view.addSubviews([
-            searchTextField,
-            searchButton,
             moviePosterView,
             movieTitle,
             movieReleasedDate])
     }
     
     func addConstraints() {
-        searchTextField
-            .topToSuperview(100)
-            .leadingToSuperview(25)
-            .heightTo(30)
-        
-        searchButton
-            .leadingToTrailing(of: searchTextField, margin: 15)
-            .trailingToSuperview(25)
-            .widthTo(100)
-            .topToTop(of: searchTextField)
-            .heightOf(searchTextField)
-            
         moviePosterView
-            .topToBottom(of: searchTextField, margin: 25)
+            .topToSuperview(toSafeArea: true)
             .centerHorizontalToSuperView()
             .widthToSuperview(-50)
             .heightTo(300)
@@ -137,41 +106,19 @@ extension MovieDetailViewController: ViewCodable {
     }
     
     func additionalConfig() {
-        searchTextField.placeholder = "Placeholder"
-        searchTextField.textColor = .blue
-        searchTextField.autocapitalizationType = .none
-        searchTextField.leftViewMode = .always
-        searchTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
-        searchTextField.backgroundColor = .white
-        searchTextField.textColor = .black
-        searchTextField.layer.cornerRadius = 15
-        searchTextField.layer.borderWidth = 1
-        searchTextField.layer.borderColor = UIColor.gray.cgColor
-        
-        searchButton.setTitle("Search", for: .normal)
-        searchButton.setTitleColor(.white, for: .normal)
-        searchButton.backgroundColor = .systemBlue
-        searchButton.layer.cornerRadius = 5
-        searchButton.addTarget(self, action: #selector(tapSearchButton), for: .touchUpInside)
-        
         moviePosterView.backgroundColor = .blue
         
-        movieTitle.text = "Movie Title"
+        movieTitle.text = movie?.title ?? "Movie Title"
         movieTitle.textColor = .purple
         movieTitle.textAlignment = .center
         movieTitle.font = .systemFont(ofSize: 24, weight: .heavy)
-            
         
-        movieReleasedDate.text = "2024"
+        movieReleasedDate.text = movie?.released ?? "2024"
         movieReleasedDate.font = .systemFont(ofSize: 18, weight: .semibold)
         movieReleasedDate.textColor = .orange
         movieReleasedDate.textAlignment = .center
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Hide",
-                                                           style: .plain,
-                                                           target: self,
-                                                           action: #selector(tapToggleSearchFeatureButton))
-        
+        self.title = "Movie Details"
         self.view.backgroundColor = .white
     }
 }

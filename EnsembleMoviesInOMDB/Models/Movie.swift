@@ -11,10 +11,20 @@ struct Movie: Codable {
     var title: String
     var released: String
     var imdbID: String
+    var poster: String
     
     enum CodingKeys: String, CodingKey {
         case title = "Title"
-        case released = "Released"
-        case imdbID
+        case released = "Year"
+        case imdbID = "imdbID"
+        case poster = "Poster"
+    }
+}
+
+struct Search: Codable {
+    var movies: [Movie]
+    
+    enum CodingKeys: String, CodingKey {
+        case movies = "Search"
     }
 }

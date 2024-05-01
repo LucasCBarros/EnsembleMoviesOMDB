@@ -18,7 +18,7 @@
 		E6AB8AA82BE1ADEE00C93686 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8AA42BE1ADEE00C93686 /* Log.swift */; };
 		E6AB8AB32BE1AE8700C93686 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8AB22BE1AE8700C93686 /* Movie.swift */; };
 		E6AB8AB62BE1AEC400C93686 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8AB52BE1AEC400C93686 /* NetworkManager.swift */; };
-		E6AB8AB92BE1BF6B00C93686 /* MovieSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8AB82BE1BF6B00C93686 /* MovieSearchViewController.swift */; };
+		E6AB8AB92BE1BF6B00C93686 /* MovieSearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8AB82BE1BF6B00C93686 /* MovieSearchListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,7 +38,7 @@
 		E6AB8AA42BE1ADEE00C93686 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		E6AB8AB22BE1AE8700C93686 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		E6AB8AB52BE1AEC400C93686 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		E6AB8AB82BE1BF6B00C93686 /* MovieSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchViewController.swift; sourceTree = "<group>"; };
+		E6AB8AB82BE1BF6B00C93686 /* MovieSearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +125,7 @@
 		E6AB8AB12BE1AE7200C93686 /* Search Movie */ = {
 			isa = PBXGroup;
 			children = (
-				E6AB8AB82BE1BF6B00C93686 /* MovieSearchViewController.swift */,
+				E6AB8AB82BE1BF6B00C93686 /* MovieSearchListViewController.swift */,
 			);
 			path = "Search Movie";
 			sourceTree = "<group>";
@@ -236,7 +236,7 @@
 				E6AB8AB62BE1AEC400C93686 /* NetworkManager.swift in Sources */,
 				E6AB8A722BE1A56100C93686 /* MovieDetailViewController.swift in Sources */,
 				E6AB8AA82BE1ADEE00C93686 /* Log.swift in Sources */,
-				E6AB8AB92BE1BF6B00C93686 /* MovieSearchViewController.swift in Sources */,
+				E6AB8AB92BE1BF6B00C93686 /* MovieSearchListViewController.swift in Sources */,
 				E6AB8A6E2BE1A56100C93686 /* AppDelegate.swift in Sources */,
 				E6AB8A702BE1A56100C93686 /* SceneDelegate.swift in Sources */,
 				E6AB8AA62BE1ADEE00C93686 /* UIView+Extension.swift in Sources */,
