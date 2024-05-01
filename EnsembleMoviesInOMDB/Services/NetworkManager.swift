@@ -13,16 +13,12 @@ protocol NetworkManagerProtocol {
     func fetchMoviePoster(imageURL: String, completion: @escaping (Result<Data, FetchError>) -> Void)
      
     // Extra calls
-    func getUser() async throws -> Movie
-    func fetchMovieByID(_ imdbID: String, completion: @escaping (Result<Movie, FetchError>) -> Void)
-    
+//    func getUser() async throws -> Movie
+//    func fetchMovieByID(_ imdbID: String, completion: @escaping (Result<Movie, FetchError>) -> Void)
 }
 
 // MARK: - API calls
 class NetworkManager: NetworkManagerProtocol {
-    // Singleton
-    static let shared = NetworkManager()
-    
     // Fetch all movies that title contains the searched string
     func searchMovieWith(title: String, completion: @escaping (Result<Search, FetchError>) -> Void) {
         guard let url = URL(string: Constants.baseAPIurl+"&s=\(title)") else { return }

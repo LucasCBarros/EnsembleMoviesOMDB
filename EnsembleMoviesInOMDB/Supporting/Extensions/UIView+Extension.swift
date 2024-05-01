@@ -8,23 +8,6 @@
 import UIKit
 
 extension UIView {
-    
-    // Add blur to slide views
-    func addBlur(_ alpha: CGFloat = 0.5, style: UIBlurEffect.Style = .extraLight) {
-           // create effect
-           let effect = UIBlurEffect(style: style)
-           let effectView = UIVisualEffectView(effect: effect)
-           
-           // set boundry and alpha
-           effectView.frame = self.bounds
-           effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-           effectView.alpha = alpha
-           
-           self.addSubview(effectView)
-       }
-}
-
-extension UIView {
 
     // Add animation to slide views
     func hideSlideY(y: CGFloat, shouldHide: Bool) {
