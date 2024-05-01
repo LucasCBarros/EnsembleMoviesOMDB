@@ -43,14 +43,35 @@ class MovieSearchListViewController: UIViewController {
     }
 }
 
-// MARK: Delegate Methods
+// MARK: - TableView Setup
+extension MovieSearchListViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.movies.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.textLabel?.text = viewModel.movies[indexPath.row].title // "\(indexPath.row)"
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let navigation = self.navigationController else { return }
+        viewModel.navigateToMovieDetail(with: viewModel.movies[indexPath.row], navigation: navigation)
+    }
+}
+
+
+// MARK: - Delegate Methods
 extension MovieSearchListViewController: MovieSearchListDelegate {
     func updateMovieList() {
         self.movieTableView.reloadData()
     }
 }
 
-// MARK: Setup UI
+/// NOTE: I've separated each component into a different extension to exemplify how to isolate programmatic UI setup in a complex view
+/// This way we can close the code folding ribbons to view only relevant code
+// MARK: - Setup UI
 extension MovieSearchListViewController: ViewCodable {
     func addHierarchy() {
         self.view.addSubviews([
@@ -74,7 +95,7 @@ extension MovieSearchListViewController: ViewCodable {
     }
 }
 
-// MARK: Setup SearchBar UI
+// MARK: - Setup SearchBar UI
 extension MovieSearchListViewController {
     func addSearchBarConstraints() {
         searchTextField
@@ -110,7 +131,7 @@ extension MovieSearchListViewController {
     }
 }
 
-// MARK: Setup tableView UI
+// MARK: - Setup tableView UI
 extension MovieSearchListViewController {
     func addTableViewConstraints() {
         movieTableView
@@ -126,7 +147,7 @@ extension MovieSearchListViewController {
     }
 }
 
-// MARK: Setup NavigationBar UI
+// MARK: - Setup NavigationBar UI
 extension MovieSearchListViewController {
     func addNavigationBarConstraints() {
         headerView
@@ -143,23 +164,5 @@ extension MovieSearchListViewController {
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(tapToggleSearchFeatureButton))
-    }
-}
-
-// MARK: TableView Setup
-extension MovieSearchListViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.movies.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = viewModel.movies[indexPath.row].title // "\(indexPath.row)"
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let navigation = self.navigationController else { return }
-        viewModel.navigateToMovieDetail(with: viewModel.movies[indexPath.row], navigation: navigation)
     }
 }

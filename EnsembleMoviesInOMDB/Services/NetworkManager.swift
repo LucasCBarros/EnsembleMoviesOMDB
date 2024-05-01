@@ -7,7 +7,7 @@
 
 import UIKit
 
-// Protocol no make it testable
+// MARK: - Protocol to make it testable
 protocol NetworkManagerProtocol {
     func searchMovieWith(title: String, completion: @escaping (Result<Search, FetchError>) -> Void)
     func fetchMoviePoster(imageURL: String, completion: @escaping (Result<Data, FetchError>) -> Void)
@@ -18,7 +18,7 @@ protocol NetworkManagerProtocol {
     
 }
 
-// API calls
+// MARK: - API calls
 class NetworkManager: NetworkManagerProtocol {
     // Singleton
     static let shared = NetworkManager()
@@ -110,4 +110,41 @@ extension NetworkManager {
             throw FetchError.invalidData
         }
     }
+    
+//    func method1and2() {
+//        
+//        NetworkManager.shared.fetch { response in
+//            switch response {
+//            case .success(let movie):
+//                self.movie = movie
+//                print("movie = ", movie)
+//            case .failure(let error):
+//                switch error {
+//                case .invalidData:
+//                    print("Invalid data")
+//                case .invalidURL:
+//                    print("Invalid url")
+//                case .invalidResponse:
+//                    print("Invalid response")
+//                case .invalidJsonParse:
+//                    print("Invalid Json Parse")
+//                }
+//            }
+//        }
+//        
+//        let task = Task {
+//            do {
+//                movie = try await NetworkManager.shared.getUser()
+//                print(movie?.title)
+//            } catch FetchError.invalidURL {
+//                print("Invalid URL")
+//            } catch FetchError.invalidResponse {
+//                print("Invalid Response")
+//            } catch FetchError.invalidData {
+//                print("Invalid data")
+//            } catch {
+//                print("Unexpected Error")
+//            }
+//        }
+//    }
 }

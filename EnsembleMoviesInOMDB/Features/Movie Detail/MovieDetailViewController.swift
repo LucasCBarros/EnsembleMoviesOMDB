@@ -7,131 +7,82 @@
 
 import UIKit
 
-enum Constants {
-    /// OMDB documentation: http://www.omdbapi.com/
-    static let baseAPIurl = "https://www.omdbapi.com/?apikey=36d78389"
-}
-
-//class MovieViewModel {
-//    var movie: Movie?
-//    var moviePoster: UIImage?
-//    
-//    func getMovie() {
-//        
-//    }
-//}
-
 class MovieDetailViewController: UIViewController {
     // MARK: Views
-    let movieTitle = UILabel()
-    let movieReleasedDate = UILabel()
+    let movieTitleLabel = UILabel()
+    let movieReleasedDateLabel = UILabel()
     let moviePosterView = UIImageView()
     
     // MARK: Properties
-    var movie: Movie?
-    var shouldSearch: Bool = true
-//    var viewModel: MovieViewModel?
-
+    var viewModel: MovieViewModelProtocol? = MovieDetailViewModel()
+    
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel?.delegate = self
         setupUI()
-
-//        NetworkManager.shared.fetch { response in
-//            switch response {
-//            case .success(let movie):
-//                self.movie = movie
-//                print("movie = ", movie)
-//            case .failure(let error):
-//                switch error {
-//                case .invalidData:
-//                    print("Invalid data")
-//                case .invalidURL:
-//                    print("Invalid url")
-//                case .invalidResponse:
-//                    print("Invalid response")
-//                case .invalidJsonParse:
-//                    print("Invalid Json Parse")
-//                }
-//            }
-//        }
-        
-//        let task = Task {
-//            do {
-//                movie = try await NetworkManager.shared.getUser()
-//                print(movie?.title)
-//            } catch FetchError.invalidURL {
-//                print("Invalid URL")
-//            } catch FetchError.invalidResponse {
-//                print("Invalid Response")
-//            } catch FetchError.invalidData {
-//                print("Invalid data")
-//            } catch {
-//                print("Unexpected Error")
-//            }
-//        }
     }
-    
     // MARK: Actions
 }
 
-// MARK: Setup UI
+// MARK: - Delegate Methods
+extension MovieDetailViewController: MovieDetailViewControllerDelegate{
+    func updateImageView(with imageData: Data) {
+        self.moviePosterView.image = UIImage(data: imageData)
+    }
+}
+
+/// NOTE: I've set all UI for this screen in a single extension as alternative when implementing simple views
+// MARK: - Setup UI
 extension MovieDetailViewController: ViewCodable {
+    // MARK: Hierarchy
     func addHierarchy() {
         self.view.addSubviews([
             moviePosterView,
-            movieTitle,
-            movieReleasedDate])
+            movieTitleLabel,
+            movieReleasedDateLabel])
     }
     
+    // MARK: Constraints
     func addConstraints() {
         moviePosterView
             .topToSuperview(toSafeArea: true)
             .centerHorizontalToSuperView()
             .widthToSuperview(-50)
         
-        movieTitle
+        movieTitleLabel
             .topToBottom(of: moviePosterView, margin: 15)
             .centerHorizontalToSuperView()
             .widthToSuperview()
         
-        movieReleasedDate
-            .topToBottom(of: movieTitle)
+        movieReleasedDateLabel
+            .topToBottom(of: movieTitleLabel)
             .centerHorizontalToSuperView()
             .widthToSuperview()
             .heightTo(30)
     }
     
+    // MARK: Configurations
     func additionalConfig() {
         moviePosterView.backgroundColor = .blue
+        viewModel?.fetchMoviePoster()
         
-        movieTitle.text = movie?.title ?? "Movie Title"
-        movieTitle.numberOfLines = 0
-        movieTitle.textColor = .purple
-        movieTitle.textAlignment = .center
-        movieTitle.font = .systemFont(ofSize: 24, weight: .heavy)
+        movieTitleLabel.numberOfLines = 0
+        movieTitleLabel.textColor = .purple
+        movieTitleLabel.textAlignment = .center
+        movieTitleLabel.font = .systemFont(ofSize: 24, weight: .heavy)
         
-        movieReleasedDate.font = .systemFont(ofSize: 18, weight: .semibold)
-        movieReleasedDate.textColor = .orange
-        movieReleasedDate.textAlignment = .center
+        movieReleasedDateLabel.font = .systemFont(ofSize: 18, weight: .semibold)
+        movieReleasedDateLabel.textColor = .orange
+        movieReleasedDateLabel.textAlignment = .center
         
         self.title = "Movie Details"
         self.view.backgroundColor = .white
         
-        guard let releaseDate = movie?.released else { return }
-        movieReleasedDate.text = "Released in: \(releaseDate)"
+        guard let releaseDate = viewModel?.movie?.released else { return }
+        movieReleasedDateLabel.text = "Released in: \(releaseDate)"
         
-        guard let posterURL = movie?.poster else { return }
-        NetworkManager.shared.fetchMoviePoster(imageURL: posterURL, completion: { response in
-            switch response {
-            case .success(let image):
-                // Update views in main thread
-                DispatchQueue.main.async {
-                    self.moviePosterView.image = UIImage(data: image)
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        })
+        guard let title = viewModel?.movie?.title else { return }
+        movieTitleLabel.text = title
     }
 }
