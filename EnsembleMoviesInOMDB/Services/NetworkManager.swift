@@ -9,8 +9,13 @@ import UIKit
 
 // Protocol no make it testable
 protocol NetworkManagerProtocol {
+    func searchMovieWith(title: String, completion: @escaping (Result<Search, FetchError>) -> Void)
+    func fetchMoviePoster(imageURL: String, completion: @escaping (Result<Data, FetchError>) -> Void)
+     
+    // Extra calls
     func getUser() async throws -> Movie
-    func fetchPeople(completion: @escaping (Result<Movie, FetchError>) -> Void)
+    func fetchMovieByID(_ imdbID: String, completion: @escaping (Result<Movie, FetchError>) -> Void)
+    
 }
 
 // API calls
@@ -18,37 +23,8 @@ class NetworkManager: NetworkManagerProtocol {
     // Singleton
     static let shared = NetworkManager()
     
-    // TODO: Fetch movie poster image
-    // TODO: Fetch all movies
-    
-    // TODO: Implement fetching a list of movies
-    // TODO: Implement fetching for movie poster
-    
-    // Fetch method 1 for specific movie
-    func fetchPeople(completion: @escaping (Result<Movie, FetchError>) -> Void) {
-        guard let url = URL(string: Constants.baseAPIurl+"&t=Batman&y=*") else { return }
-
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if error != nil {
-                completion(.failure(FetchError.invalidResponse))
-                return }
-            guard let data = data else {
-                completion(.failure(FetchError.invalidData))
-                return }
-            
-            let jsonDecoder = JSONDecoder()
-            
-            do {
-                let movie = try jsonDecoder.decode(Movie.self, from: data)
-                print(movie.title)
-                completion(.success(movie))
-            } catch {
-                completion(.failure(FetchError.invalidJsonParse))
-            }
-        }.resume()
-    }
-    
-    func searchMovieWith(title: String, completion: @escaping (Result<Search, FetchError>) -> Void ) {
+    // Fetch all movies that title contains the searched string
+    func searchMovieWith(title: String, completion: @escaping (Result<Search, FetchError>) -> Void) {
         guard let url = URL(string: Constants.baseAPIurl+"&s=\(title)") else { return }
 
         URLSession.shared.dataTask(with: url) { data, response, error in
@@ -70,7 +46,50 @@ class NetworkManager: NetworkManagerProtocol {
         }.resume()
     }
     
+    // Fetch image from imageURL
+    func fetchMoviePoster(imageURL: String, completion: @escaping (Result<Data, FetchError>) -> Void) {
+        guard let url = URL(string: imageURL) else { return }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if error != nil {
+                completion(.failure(FetchError.invalidResponse))
+                return }
+            guard let data = data else {
+                completion(.failure(FetchError.invalidData))
+                return }
+            
+            completion(.success(data))
+        }.resume()
+    }
+}
+
+// Extra calls
+extension NetworkManager {
     // Fetch method 1 for specific movie
+    func fetchMovieByID(_ imdbID: String, completion: @escaping (Result<Movie, FetchError>) -> Void) {
+        guard let url = URL(string: Constants.baseAPIurl+"&i=\(imdbID)") else { return }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if error != nil {
+                completion(.failure(FetchError.invalidResponse))
+                return }
+            guard let data = data else {
+                completion(.failure(FetchError.invalidData))
+                return }
+            
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                let movie = try jsonDecoder.decode(Movie.self, from: data)
+                print(movie.title)
+                completion(.success(movie))
+            } catch {
+                completion(.failure(FetchError.invalidJsonParse))
+            }
+        }.resume()
+    }
+    
+    // Fetch method 2 for specific movie
     func getUser() async throws -> Movie {
         guard let url = URL(string: Constants.baseAPIurl) else { throw FetchError.invalidURL }
         
@@ -91,11 +110,4 @@ class NetworkManager: NetworkManagerProtocol {
             throw FetchError.invalidData
         }
     }
-}
-
-enum FetchError: Error {
-    case invalidURL
-    case invalidResponse
-    case invalidData
-    case invalidJsonParse
 }

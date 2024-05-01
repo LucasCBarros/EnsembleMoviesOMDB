@@ -37,7 +37,7 @@ class MovieDetailViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
 
-//        NetworkManager.shared.fetchPeople { response in
+//        NetworkManager.shared.fetch { response in
 //            switch response {
 //            case .success(let movie):
 //                self.movie = movie
@@ -89,36 +89,49 @@ extension MovieDetailViewController: ViewCodable {
             .topToSuperview(toSafeArea: true)
             .centerHorizontalToSuperView()
             .widthToSuperview(-50)
-            .heightTo(300)
         
         movieTitle
             .topToBottom(of: moviePosterView, margin: 15)
             .centerHorizontalToSuperView()
             .widthToSuperview()
-            .heightTo(50)
         
         movieReleasedDate
             .topToBottom(of: movieTitle)
             .centerHorizontalToSuperView()
             .widthToSuperview()
             .heightTo(30)
-        
     }
     
     func additionalConfig() {
         moviePosterView.backgroundColor = .blue
         
         movieTitle.text = movie?.title ?? "Movie Title"
+        movieTitle.numberOfLines = 0
         movieTitle.textColor = .purple
         movieTitle.textAlignment = .center
         movieTitle.font = .systemFont(ofSize: 24, weight: .heavy)
         
-        movieReleasedDate.text = movie?.released ?? "2024"
         movieReleasedDate.font = .systemFont(ofSize: 18, weight: .semibold)
         movieReleasedDate.textColor = .orange
         movieReleasedDate.textAlignment = .center
         
         self.title = "Movie Details"
         self.view.backgroundColor = .white
+        
+        guard let releaseDate = movie?.released else { return }
+        movieReleasedDate.text = "Released in: \(releaseDate)"
+        
+        guard let posterURL = movie?.poster else { return }
+        NetworkManager.shared.fetchMoviePoster(imageURL: posterURL, completion: { response in
+            switch response {
+            case .success(let image):
+                // Update views in main thread
+                DispatchQueue.main.async {
+                    self.moviePosterView.image = UIImage(data: image)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        })
     }
 }

@@ -12,19 +12,12 @@ struct Movie: Codable {
     var released: String
     var imdbID: String
     var poster: String
+    var posterImage: Data?
     
     enum CodingKeys: String, CodingKey {
         case title = "Title"
         case released = "Year"
         case imdbID = "imdbID"
         case poster = "Poster"
-    }
-}
-
-struct Search: Codable {
-    var movies: [Movie]
-    
-    enum CodingKeys: String, CodingKey {
-        case movies = "Search"
     }
 }
