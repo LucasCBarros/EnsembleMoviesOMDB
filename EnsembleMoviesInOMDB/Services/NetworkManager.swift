@@ -35,13 +35,16 @@ class NetworkManager: NetworkManagerProtocol {
                 completion(.failure(FetchError.invalidData))
                 return }
             
-            let jsonDecoder = JSONDecoder()
-            
             do {
-                let search = try jsonDecoder.decode(Search.self, from: data)
+                let search = try JSONDecoder().decode(Search.self, from: data)
                 completion(.success(search))
             } catch {
-                completion(.failure(FetchError.invalidJsonParse))
+                do {
+                    let apiError = try JSONDecoder().decode(APIError.self, from: data)
+                    completion(.failure(FetchError.apiError(apiError)))
+                } catch {
+                    completion(.failure(FetchError.invalidJsonParse))
+                }
             }
         }.resume()
     }
@@ -77,14 +80,16 @@ extension NetworkManager {
                 completion(.failure(FetchError.invalidData))
                 return }
             
-            let jsonDecoder = JSONDecoder()
-            
             do {
-                let movie = try jsonDecoder.decode(Movie.self, from: data)
-                print(movie.title)
+                let movie = try JSONDecoder().decode(Movie.self, from: data)
                 completion(.success(movie))
             } catch {
-                completion(.failure(FetchError.invalidJsonParse))
+                do {
+                    let apiError = try JSONDecoder().decode(APIError.self, from: data)
+                    completion(.failure(FetchError.apiError(apiError)))
+                } catch {
+                    completion(.failure(FetchError.invalidJsonParse))
+                }
             }
         }.resume()
     }
@@ -103,14 +108,19 @@ extension NetworkManager {
         }
         
         do {
-            let decoder = JSONDecoder()
-            let movie = try decoder.decode(Movie.self, from: data)
+            let movie = try JSONDecoder().decode(Movie.self, from: data)
             return movie
         } catch {
-            throw FetchError.invalidData
+            do {
+                let apiError = try JSONDecoder().decode(APIError.self, from: data)
+                throw FetchError.apiError(apiError)
+            } catch {
+                throw FetchError.invalidJsonParse
+            }
         }
     }
     
+    // Func to receive from Method 1 and Method 2 in the ViewModels
 //    func method1and2() {
 //        
 //        NetworkManager.shared.fetch { response in

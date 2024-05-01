@@ -30,6 +30,10 @@ extension MovieDetailViewController: MovieDetailViewControllerDelegate{
     func updateImageView(with imageData: Data) {
         self.moviePosterView.image = UIImage(data: imageData)
     }
+    
+    func alertError(title: String, description: String) {
+        popAlert(title: title, message: description)
+    }
 }
 
 /// NOTE: I've set all UI for this screen in a single extension as alternative when implementing simple views

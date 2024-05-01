@@ -27,8 +27,7 @@ class MovieSearchListViewController: UIViewController {
     
     // MARK: Actions
     @objc func tapSearchButton() {
-        guard let searchText = searchTextField.text,
-              !searchText.isEmpty else { return }
+        guard let searchText = searchTextField.text else { return }
         viewModel.searchForMovies(with: searchText)
     }
     
@@ -51,7 +50,7 @@ extension MovieSearchListViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = viewModel.movies[indexPath.row].title // "\(indexPath.row)"
+        cell.textLabel?.text = viewModel.movies[indexPath.row].title
         return cell
     }
     
@@ -66,6 +65,10 @@ extension MovieSearchListViewController: UITableViewDelegate, UITableViewDataSou
 extension MovieSearchListViewController: MovieSearchListDelegate {
     func updateMovieList() {
         self.movieTableView.reloadData()
+    }
+    
+    func alertError(title: String, description: String) {
+        popAlert(title: title, message: description)
     }
 }
 
@@ -164,5 +167,22 @@ extension MovieSearchListViewController {
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(tapToggleSearchFeatureButton))
+    }
+}
+
+extension UIViewController {
+    func popAlert(title: String, message: String) {
+        // create the alert
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: UIAlertController.Style.alert)
+        
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK",
+                                      style: UIAlertAction.Style.default,
+                                      handler: nil))
+        
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
     }
 }
