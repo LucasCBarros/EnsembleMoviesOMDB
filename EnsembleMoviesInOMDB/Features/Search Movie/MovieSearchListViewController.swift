@@ -17,6 +17,7 @@ class MovieSearchListViewController: UIViewController {
     // MARK: Properties
     private var viewModel: MovieSearchListViewModelProtocol = MovieSearchListViewModel()
     private var shouldSearch: Bool = true
+    private var withCustomCell: Bool = true
 
     // MARK: Life Cycle
     override func viewDidLoad() {
@@ -40,6 +41,12 @@ class MovieSearchListViewController: UIViewController {
         navigationItem.rightBarButtonItem?.title = shouldSearch ? "Search" : "Hide search"
         shouldSearch.toggle()
     }
+    
+    @objc func tapCustomCellFeatureButton() {
+        navigationItem.leftBarButtonItem?.title = withCustomCell ? "Generic cell" : "Custom cell"
+        movieTableView.reloadData()
+        withCustomCell.toggle()
+    }
 }
 
 // MARK: - TableView Setup
@@ -49,9 +56,17 @@ extension MovieSearchListViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = viewModel.movies[indexPath.row].title
-        return cell
+        if withCustomCell {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieSearchTableViewCell.identifier, for: indexPath) as? MovieSearchTableViewCell else {
+                fatalError("The tableView could not dequeue a MovieSearchTableViewCell in ViewController")
+            }
+            cell.configure(with: viewModel.movies[indexPath.row])
+            return cell
+        } else {
+            let cell = UITableViewCell()
+            cell.textLabel?.text = viewModel.movies[indexPath.row].title
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -147,6 +162,7 @@ extension MovieSearchListViewController {
     func additionalTableViewConfig() {
         movieTableView.dataSource = self
         movieTableView.delegate = self
+        movieTableView.register(MovieSearchTableViewCell.self, forCellReuseIdentifier: "MovieSearchTableViewCell")
     }
 }
 
@@ -167,6 +183,10 @@ extension MovieSearchListViewController {
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(tapToggleSearchFeatureButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Custom cell",
+                                                           style: .plain,
+                                                           target: self,
+                                                           action: #selector(tapCustomCellFeatureButton))
     }
 }
 

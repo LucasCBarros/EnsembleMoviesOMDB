@@ -24,6 +24,7 @@
 		E6AB8B0E2BE1F8FD00C93686 /* MovieSearchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8B0D2BE1F8FD00C93686 /* MovieSearchListViewModel.swift */; };
 		E6AB8B102BE2038400C93686 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8B0F2BE2038400C93686 /* Constants.swift */; };
 		E6AB8B122BE203A300C93686 /* MovieDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8B112BE203A300C93686 /* MovieDetailViewModel.swift */; };
+		E6AB8B152BE2AEBB00C93686 /* MovieSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8B142BE2AEBB00C93686 /* MovieSearchTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,8 @@
 		E6AB8B0D2BE1F8FD00C93686 /* MovieSearchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieSearchListViewModel.swift; path = ../../../../../Documents/MovieSearchListViewModel.swift; sourceTree = "<group>"; };
 		E6AB8B0F2BE2038400C93686 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ../../../../Documents/Constants.swift; sourceTree = "<group>"; };
 		E6AB8B112BE203A300C93686 /* MovieDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieDetailViewModel.swift; path = ../../../../../Documents/MovieDetailViewModel.swift; sourceTree = "<group>"; };
+		E6AB8B132BE2A83800C93686 /* MovieDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieDetailViewModelTests.swift; path = ../../../Documents/MovieDetailViewModelTests.swift; sourceTree = "<group>"; };
+		E6AB8B142BE2AEBB00C93686 /* MovieSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieSearchTableViewCell.swift; path = ../../../../../Documents/MovieSearchTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				E6AB8A842BE1A56400C93686 /* EmsembleMoviesInOMDBTests.swift */,
+				E6AB8B132BE2A83800C93686 /* MovieDetailViewModelTests.swift */,
 			);
 			path = EnsembleMoviesInOMDBTests;
 			sourceTree = "<group>";
@@ -137,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				E6AB8AB82BE1BF6B00C93686 /* MovieSearchListViewController.swift */,
+				E6AB8B142BE2AEBB00C93686 /* MovieSearchTableViewCell.swift */,
 				E6AB8B0D2BE1F8FD00C93686 /* MovieSearchListViewModel.swift */,
 			);
 			path = "Search Movie";
@@ -250,6 +255,7 @@
 			files = (
 				E6AB8B0A2BE1DD4C00C93686 /* Search.swift in Sources */,
 				E6AB8AB62BE1AEC400C93686 /* NetworkManager.swift in Sources */,
+				E6AB8B152BE2AEBB00C93686 /* MovieSearchTableViewCell.swift in Sources */,
 				E6AB8A722BE1A56100C93686 /* MovieDetailViewController.swift in Sources */,
 				E6AB8B0C2BE1DD6F00C93686 /* FetchError.swift in Sources */,
 				E6AB8AA82BE1ADEE00C93686 /* Log.swift in Sources */,
