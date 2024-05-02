@@ -69,10 +69,7 @@ extension MovieDetailViewController: ViewCodable {
     // MARK: Configurations
     func additionalConfig() {
         moviePosterView.backgroundColor = .blue
-        
         viewModel?.fetchMoviePoster()
-        // TODO: Update test file
-        viewModel?.fetchMoviePosterImage()
         
         movieTitleLabel.numberOfLines = 0
         movieTitleLabel.textColor = .purple

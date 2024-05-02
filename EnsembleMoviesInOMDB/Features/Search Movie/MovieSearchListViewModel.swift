@@ -47,19 +47,14 @@ class MovieSearchListViewModel: MovieSearchListViewModelProtocol {
             delegate?.alertError(title: "Invalid lacking information",
                                  description: "Need more than 3 characters from the title!")
         }
-//        Task {
-//            do {
-//                let search = try await networkManager?.fetchMovies(withTitle: title)
-//                guard let movies = search?.movies else { return }
-//                self.updateTableViewWith(movies)
-//            } catch let error {
-//                guard let fetchError = error as? FetchError else {
-//                    self.updateViewWithError(FetchError.apiError(APIError(response: "Unexpected Error", error: "Unexpected Error")))
-//                    return
-//                }
-//                self.updateViewWithError(fetchError)
-//            }
-//        }
+        networkManager?.fetchMovies(withTitle: title, completion: { response in
+            switch response {
+            case .success(let search):
+                self.updateTableViewWith(search.movies)
+            case .failure(let error):
+                self.updateViewWithError(error)
+            }
+        })
     }
     
     func updateTableViewWith(_ movies: [Movie]) {

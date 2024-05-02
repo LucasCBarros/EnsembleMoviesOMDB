@@ -79,7 +79,7 @@ final class MovieSearchListViewModelTests: XCTestCase {
         
         // WHEN
         UIApplication.shared.windows.first?.rootViewController = viewController
-        viewModel?.searchForMovies(with: searchText)
+        viewModel?.fetchMovies(with: searchText)
         
         // THEN
         let exp = expectation(description: "Test after 1.5 second wait")
@@ -106,7 +106,7 @@ final class MovieSearchListViewModelTests: XCTestCase {
         
         // WHEN
         UIApplication.shared.windows.first?.rootViewController = viewController
-        viewModel?.searchForMovies(with: searchText)
+        viewModel?.fetchMovies(with: searchText)
         
         // THEN
         let exp = expectation(description: "Test after 1.5 second wait")
@@ -144,7 +144,7 @@ final class MovieSearchListViewModelTests: XCTestCase {
             
             
             UIApplication.shared.windows.first?.rootViewController = viewController
-            viewController?.viewModel?.searchForMovies(with: "batman")
+            viewController?.viewModel?.fetchMovies(with: "batman")
             
             // THEN
             let exp = expectation(description: "Test after 1.5 second wait")
@@ -173,7 +173,7 @@ final class MovieSearchListViewModelTests: XCTestCase {
                        "movieTableView should start with zero cells")
         
         // WHEN
-        viewController?.viewModel?.searchForMovies(with: "batman")
+        viewController?.viewModel?.fetchMovies(with: "batman")
         viewController?.loadViewIfNeeded()
         
         // THEN

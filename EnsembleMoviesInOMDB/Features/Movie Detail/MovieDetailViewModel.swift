@@ -44,19 +44,15 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
     // MARK: Methods
     func fetchMoviePoster() {
         guard let posterURL = movie?.poster else { return }
-//        Task {
-//            do {
-//                let imageData = try await networkManager?.fetchMoviePoster(imageURL: posterURL)
-//                guard let image = imageData else { return }
-//                self.updateViewWithImage(image)
-//            } catch let error {
-//                guard let fetchError = error as? FetchError else {
-//                    self.updateViewWithError(FetchError.apiError(APIError(response: "Unexpected Error", error: "Unexpected Error")))
-//                    return
-//                }
-//                self.updateViewWithError(fetchError)
-//            }
-//        }
+        
+        networkManager?.fetchMoviePoster(imageURL: posterURL, completion: { response in
+            switch response {
+            case .success(let imageData):
+                self.updateViewWithImage(imageData)
+            case .failure(let error):
+                self.updateViewWithError(error)
+            }
+        })
     }
     
     func updateViewWithImage(_ imageData: Data) {
