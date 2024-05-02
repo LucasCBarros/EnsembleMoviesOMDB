@@ -22,36 +22,6 @@ import Foundation
 
 import UIKit
 
-    // MARK: - isActive
-
-public extension NSLayoutConstraint {
-
-    func off() {
-        isActive = false
-    }
-    func on() {
-        isActive = true
-    }
-    func toggle() {
-        isActive = !isActive
-    }
-    func remove() {
-        firstItem?.removeConstraint(self)
-    }
-}
-
-public extension UIStackView {
-    /// Set translatesAutoresizingMaskIntoConstraints into false automatically while adding the subviews
-    @discardableResult
-    func addArrangedSubviews(_ views: [UIView]) -> Self {
-        for view in views {
-            view.autoResizingOff()
-            addArrangedSubview(view)
-        }
-        return self
-    }
-}
-
     // MARK: - addSubviews
 public extension UIView {
 
@@ -69,15 +39,6 @@ public extension UIView {
     func autoResizingOff() -> Self {
         translatesAutoresizingMaskIntoConstraints = false
         return self
-    }
-}
-
-public extension UIViewController {
-
-    func prepareViewsForLayout(_ views: [UIView]) {
-        for view in views {
-            view.autoResizingOff()
-        }
     }
 }
 

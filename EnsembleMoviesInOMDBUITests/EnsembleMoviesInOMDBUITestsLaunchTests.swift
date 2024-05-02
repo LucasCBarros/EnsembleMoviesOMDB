@@ -1,13 +1,13 @@
 //
-//  ensembleMoviesInOMDBUITestsLaunchTests.swift
-//  ensembleMoviesInOMDBUITests
+//  EnsembleMoviesInOMDBUITestsLaunchTests.swift
+//  EnsembleMoviesInOMDBUITests
 //
-//  Created by Lucas C Barros on 2024-04-30.
+//  Created by Lucas C Barros on 2024-05-02.
 //
 
 import XCTest
 
-final class ensembleMoviesInOMDBUITestsLaunchTests: XCTestCase {
+final class EnsembleMoviesInOMDBUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
@@ -28,5 +28,7 @@ final class ensembleMoviesInOMDBUITestsLaunchTests: XCTestCase {
         attachment.name = "Launch Screen"
         attachment.lifetime = .keepAlways
         add(attachment)
+        
+        
     }
 }

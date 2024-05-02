@@ -1,0 +1,76 @@
+{
+    "Search": [
+        {
+            "Title": "You Are So Not Invited to My Bat Mitzvah",
+            "Year": "2023",
+            "imdbID": "tt21276878",
+            "Type": "movie",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BZWQ3ZDQ3MTYtZWUyOS00YmFhLTllOWItNzNmNjE0ZDI5YWE5XkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_SX300.jpg"
+        },
+        {
+            "Title": "Bat*21",
+            "Year": "1988",
+            "imdbID": "tt0094712",
+            "Type": "movie",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BNmVjOTZjMDUtY2ZiOS00N2Y3LTlhYzgtMzcxMDdjZmNhMzE5XkEyXkFqcGdeQXVyMTUzMDUzNTI3._V1_SX300.jpg"
+        },
+        {
+            "Title": "The Bat",
+            "Year": "1959",
+            "imdbID": "tt0052602",
+            "Type": "movie",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BZWZmM2Y3OWMtNDllMC00YjY5LWFkZWItNDU4NzNlMmU4NTgwXkEyXkFqcGdeQXVyMTY5Nzc4MDY@._V1_SX300.jpg"
+        },
+        {
+            "Title": "The Devil Bat",
+            "Year": "1940",
+            "imdbID": "tt0032390",
+            "Type": "movie",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BZWE4MjhjMDItZmQ5Yy00OTQxLWE0M2EtZTJiMTFhMzc1NjJjXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+        },
+        {
+            "Title": "The Vampire Bat",
+            "Year": "1933",
+            "imdbID": "tt0024727",
+            "Type": "movie",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BY2Q1NWZlOWQtOGQwMS00YjUyLTlkZDctNTQ5ZjRlNGE1ZDI1XkEyXkFqcGdeQXVyNjc0MzMzNjA@._V1_SX300.jpg"
+        },
+        {
+            "Title": "The Bat People",
+            "Year": "1974",
+            "imdbID": "tt0071198",
+            "Type": "movie",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BZWM3ZGUyZWEtMjQ0OS00ZjJlLTkzNjktMjBjM2E1MzI0N2JlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+        },
+        {
+            "Title": "Bat Masterson",
+            "Year": "1958–1961",
+            "imdbID": "tt0052445",
+            "Type": "series",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BYzg5Y2E3ZGUtODhmNS00ZjgzLWIwODEtZjY0ODNlZjFkZWJiXkEyXkFqcGdeQXVyMTMzNzIyNDc1._V1_SX300.jpg"
+        },
+        {
+            "Title": "The Bat Whispers",
+            "Year": "1930",
+            "imdbID": "tt0020668",
+            "Type": "movie",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BMTUwMjg3NDc2OF5BMl5BanBnXkFtZTgwMzk4ODQwMjE@._V1_SX300.jpg"
+        },
+        {
+            "Title": "Bat Thumb",
+            "Year": "2001",
+            "imdbID": "tt0331189",
+            "Type": "movie",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BMTY3ODc3MjMzM15BMl5BanBnXkFtZTcwMjIwNzIyMQ@@._V1_SX300.jpg"
+        },
+        {
+            "Title": "The Bat Woman",
+            "Year": "1968",
+            "imdbID": "tt0235608",
+            "Type": "movie",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BODJiMjM3YTEtZDk0ZC00MDNiLWI3MDYtMTA4YTgxOTRiNTk0XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+        }
+    ],
+    "totalResults": "231",
+    "Response": "True"
+}

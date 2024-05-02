@@ -35,16 +35,7 @@ final class MovieSearchListViewModelTests: XCTestCase {
         let searchTitle = "batman"
         
         // WHEN
-        
-        //        if searchTitle.isEmpty {
-        //            viewModel?.delegate?.alertError(title: "Invalid search",
-        //                                 description: "Can't search an blank title!")
-        //        } else if searchTitle.count < 3 {
-        //            viewModel?.delegate?.alertError(title: "Invalid search",
-        //                                 description: "Need more than 3 characters from the title!")
-        //        }
-        
-        viewModel?.networkManager?.searchMovieWith(title: searchTitle, completion: { response in
+        viewModel?.networkManager?.fetchMovies(withTitle: searchTitle, completion: { response in
             switch response {
             case .success(let search):
                 // THEN
@@ -64,7 +55,7 @@ final class MovieSearchListViewModelTests: XCTestCase {
         let searchTitle = "batman"
         
         // WHEN
-        viewModel?.networkManager?.searchMovieWith(title: searchTitle, completion: { response in
+        viewModel?.networkManager?.fetchMovies(withTitle: searchTitle, completion: { response in
             switch response {
             case .success(let search):
                 // THEN
@@ -84,7 +75,7 @@ final class MovieSearchListViewModelTests: XCTestCase {
                                              delegate: viewController.self,
                                              networkManager: networkManager)
         viewController?.viewModel = viewModel
-        var searchText = ""
+        let searchText = ""
         
         // WHEN
         UIApplication.shared.windows.first?.rootViewController = viewController
@@ -111,7 +102,7 @@ final class MovieSearchListViewModelTests: XCTestCase {
                                              delegate: viewController.self,
                                              networkManager: networkManager)
         viewController?.viewModel = viewModel
-        var searchText = "12"
+        let searchText = "12"
         
         // WHEN
         UIApplication.shared.windows.first?.rootViewController = viewController

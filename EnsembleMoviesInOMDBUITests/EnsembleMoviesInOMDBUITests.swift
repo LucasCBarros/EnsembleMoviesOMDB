@@ -1,13 +1,13 @@
 //
-//  ensembleMoviesInOMDBUITests.swift
-//  ensembleMoviesInOMDBUITests
+//  EnsembleMoviesInOMDBUITests.swift
+//  EnsembleMoviesInOMDBUITests
 //
-//  Created by Lucas C Barros on 2024-04-30.
+//  Created by Lucas C Barros on 2024-05-02.
 //
 
 import XCTest
 
-final class ensembleMoviesInOMDBUITests: XCTestCase {
+final class EnsembleMoviesInOMDBUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -27,6 +27,7 @@ final class ensembleMoviesInOMDBUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
 
+        
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
 
@@ -37,5 +38,24 @@ final class ensembleMoviesInOMDBUITests: XCTestCase {
                 XCUIApplication().launch()
             }
         }
+    }
+    
+    func testNew() {
+        let app = XCUIApplication()
+        
+        let moviesListNavigationBar = app.navigationBars["Movies list"]
+        
+        moviesListNavigationBar.buttons["Hide search"].tap()
+        
+        moviesListNavigationBar.buttons["Search"].tap()
+        
+        moviesListNavigationBar.buttons["Custom cell"].tap()
+        
+        moviesListNavigationBar.buttons["Generic cell"].tap()
+        
+        app.textFields["Search movie by title"].tap()
+        
+        app/*@START_MENU_TOKEN@*/.staticTexts["Search"]/*[[".buttons[\"Search\"].staticTexts[\"Search\"]",".staticTexts[\"Search\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+                
     }
 }

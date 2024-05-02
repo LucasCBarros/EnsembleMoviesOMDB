@@ -40,6 +40,17 @@
                ReferencedContainer = "container:EnsembleMoviesInOMDB.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "YES"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E67E9BA52BE376360011FA61"
+               BuildableName = "EnsembleMoviesInOMDBUITests.xctest"
+               BlueprintName = "EnsembleMoviesInOMDBUITests"
+               ReferencedContainer = "container:EnsembleMoviesInOMDB.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

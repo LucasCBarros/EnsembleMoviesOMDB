@@ -30,6 +30,8 @@ class MovieSearchListViewController: UIViewController {
     @objc func tapSearchButton() {
         guard let searchText = searchTextField.text else { return }
         viewModel?.searchForMovies(with: searchText)
+        // TODO: Update test file
+//        viewModel?.fetchMovies(with: searchText)
     }
     
     @objc func tapToggleSearchFeatureButton() {
