@@ -14,7 +14,7 @@ class MovieDetailViewController: UIViewController {
     let moviePosterView = UIImageView()
     
     // MARK: Properties
-    var viewModel: MovieViewModelProtocol? = MovieDetailViewModel()
+    var viewModel: MovieDetailViewModelProtocol? = MovieDetailViewModel()
     
     // MARK: Life Cycle
     override func viewDidLoad() {

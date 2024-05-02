@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E69C0CCD2BE2F14A00D09293 /* MovieSearchListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69C0CCC2BE2F14A00D09293 /* MovieSearchListViewControllerTests.swift */; };
+		E69C0CCF2BE2F66600D09293 /* MovieSearchListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69C0CCE2BE2F66600D09293 /* MovieSearchListViewModelTests.swift */; };
 		E6AB8A6E2BE1A56100C93686 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8A6D2BE1A56100C93686 /* AppDelegate.swift */; };
 		E6AB8A702BE1A56100C93686 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8A6F2BE1A56100C93686 /* SceneDelegate.swift */; };
 		E6AB8A722BE1A56100C93686 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8A712BE1A56100C93686 /* MovieDetailViewController.swift */; };
@@ -43,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E69C0CCC2BE2F14A00D09293 /* MovieSearchListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchListViewControllerTests.swift; sourceTree = "<group>"; };
+		E69C0CCE2BE2F66600D09293 /* MovieSearchListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchListViewModelTests.swift; sourceTree = "<group>"; };
 		E6AB8A6A2BE1A56100C93686 /* EnsembleMoviesInOMDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnsembleMoviesInOMDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6AB8A6D2BE1A56100C93686 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E6AB8A6F2BE1A56100C93686 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +95,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E69C0CCB2BE2F12C00D09293 /* Search Movie */ = {
+			isa = PBXGroup;
+			children = (
+				E69C0CCC2BE2F14A00D09293 /* MovieSearchListViewControllerTests.swift */,
+				E69C0CCE2BE2F66600D09293 /* MovieSearchListViewModelTests.swift */,
+			);
+			path = "Search Movie";
+			sourceTree = "<group>";
+		};
 		E6AB8A612BE1A56100C93686 = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +236,7 @@
 		E6AB8B532BE2C9B300C93686 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				E69C0CCB2BE2F12C00D09293 /* Search Movie */,
 				E6AB8B542BE2C9C000C93686 /* Movie Detail */,
 			);
 			path = Features;
@@ -361,7 +375,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6AB8B562BE2C9E400C93686 /* MovieDetailViewControllerTests.swift in Sources */,
+				E69C0CCD2BE2F14A00D09293 /* MovieSearchListViewControllerTests.swift in Sources */,
 				E6AB8B492BE2BC2000C93686 /* MovieDetailViewModelTests.swift in Sources */,
+				E69C0CCF2BE2F66600D09293 /* MovieSearchListViewModelTests.swift in Sources */,
 				E6AB8B502BE2C10C00C93686 /* DataMockFactory.swift in Sources */,
 				E6AB8B522BE2C18800C93686 /* NetworkManagerMock.swift in Sources */,
 				E6AB8B482BE2BC2000C93686 /* EmsembleMoviesInOMDBTests.swift in Sources */,

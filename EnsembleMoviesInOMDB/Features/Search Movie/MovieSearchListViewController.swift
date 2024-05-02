@@ -9,34 +9,34 @@ import UIKit
 
 class MovieSearchListViewController: UIViewController {
     // MARK: Views
-    private let headerView = UIView()
-    private let searchTextField = UITextField()
-    private let searchButton = UIButton()
-    private let movieTableView = UITableView()
+    let headerView = UIView()
+    let searchTextField = UITextField()
+    let searchButton = UIButton()
+    let movieTableView = UITableView()
     
     // MARK: Properties
-    private var viewModel: MovieSearchListViewModelProtocol = MovieSearchListViewModel()
-    private var shouldSearch: Bool = true
-    private var withCustomCell: Bool = true
+    var viewModel: MovieSearchListViewModelProtocol? = MovieSearchListViewModel()
+    var shouldSearch: Bool = true
+    var withCustomCell: Bool = true
 
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.delegate = self
+        viewModel?.delegate = self
         setupUI()
     }
     
     // MARK: Actions
     @objc func tapSearchButton() {
         guard let searchText = searchTextField.text else { return }
-        viewModel.searchForMovies(with: searchText)
+        viewModel?.searchForMovies(with: searchText)
     }
     
     @objc func tapToggleSearchFeatureButton() {
         // Hide search components with animation
         searchButton.hideSlideY(y: shouldSearch ? -30 : 100, shouldHide: shouldSearch)
         searchTextField.hideSlideY(y: shouldSearch ? -30 : 100, shouldHide: shouldSearch)
-        movieTableView.hideSlideY(y: shouldSearch ? 0 : searchButton.frame.origin.y+30+25, shouldHide: false)
+        movieTableView.hideSlideY(y: shouldSearch ? 1 : searchButton.frame.origin.y+30+25, shouldHide: false)
         
         navigationItem.rightBarButtonItem?.title = shouldSearch ? "Search" : "Hide search"
         shouldSearch.toggle()
@@ -52,7 +52,7 @@ class MovieSearchListViewController: UIViewController {
 // MARK: - TableView Setup
 extension MovieSearchListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.movies.count
+        return viewModel?.movies.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -60,18 +60,20 @@ extension MovieSearchListViewController: UITableViewDelegate, UITableViewDataSou
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieSearchTableViewCell.identifier, for: indexPath) as? MovieSearchTableViewCell else {
                 fatalError("The tableView could not dequeue a MovieSearchTableViewCell in ViewController")
             }
-            cell.configure(with: viewModel.movies[indexPath.row])
+            guard let movies = viewModel?.movies[indexPath.row] else { return UITableViewCell() }
+            cell.configure(with: movies)
             return cell
         } else {
             let cell = UITableViewCell()
-            cell.textLabel?.text = viewModel.movies[indexPath.row].title
+            cell.textLabel?.text = viewModel?.movies[indexPath.row].title
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let navigation = self.navigationController else { return }
-        viewModel.navigateToMovieDetail(with: viewModel.movies[indexPath.row], navigation: navigation)
+        guard let navigation = self.navigationController,
+              let movies = viewModel?.movies[indexPath.row] else { return }
+        viewModel?.navigateToMovieDetail(with: movies, navigation: navigation)
     }
 }
 

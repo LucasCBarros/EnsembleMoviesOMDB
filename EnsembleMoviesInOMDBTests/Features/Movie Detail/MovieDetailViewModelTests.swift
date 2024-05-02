@@ -48,30 +48,17 @@ final class MovieDetailViewModelTests: XCTestCase {
                 XCTAssertNil(error, "The expected result should be successful")
             }
         })
-        
-        
-        
-//        viewModel.networkManager?.searchMovieWith(title: "Movie", completion: { response in
-//            switch response {
-//            case .success(let image):
-//                // Update views in main thread
-//                XCTAssertNotNil(image)
-//            case .failure(let error):
-//                XCTAssertNotNil(error)
-//            }
-//        })
     }
     
     func testFetchMoviePosterFailure() {
         // GIVEN
-        var testErrors: [FetchError] = [
+        let testErrors: [FetchError] = [
             .invalidURL,
             .invalidResponse,
             .invalidData,
             .invalidJsonParse,
             .apiError(APIError(response: "API Response",
-                               error: "API Error")),
-        ]
+                               error: "API Error"))]
         
         for error in testErrors {
             networkManager?.setReturnError(true, with: error)
