@@ -29,7 +29,7 @@ I tried to keep it as complete as possible and do the most features from the bac
 
 The projects main features are the Movie Search List and the Movie Details: 
 
-![Image with example of the object list, quick lend creation and detailed lend creation featues](img/Github_Features01.png)
+![Screens showing the two main features and the splash screen](img/Github_Features01.png)
 
 - In the main feature you can also toggle between simple and detailed list cell
 - The search can also be hidden to optimize the list area
