@@ -36,6 +36,10 @@ The projects main features are the Movie Search List and the Movie Details:
 
 ![Screen showing error handling](img/Github_Features02.png)
 
+You can have a quick overview of the userflow in the gif below: 
+
+![Entire project userflow gif](img/userFlow.gif)
+
 Here is the wireframe for the entire project:
 
 ![Entire project wireframe with all possible user interactions](img/Github_ProjectWireframe.png)
