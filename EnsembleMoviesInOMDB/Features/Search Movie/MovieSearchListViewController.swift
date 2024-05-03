@@ -192,7 +192,7 @@ extension MovieSearchListViewController {
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(tapToggleSearchFeatureButton))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Custom cell",
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Generic cell",
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(tapCustomCellFeatureButton))
