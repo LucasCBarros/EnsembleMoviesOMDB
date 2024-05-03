@@ -38,7 +38,7 @@ The projects main features are the Movie Search List and the Movie Details:
 
 You can have a quick overview of the userflow in the gif below: 
 
-![Entire project userflow gif](img/userFlow.gif)
+![Entire project userflow gif](img/userFlow.gif =300 × 650)
 
 Here is the wireframe for the entire project:
 
