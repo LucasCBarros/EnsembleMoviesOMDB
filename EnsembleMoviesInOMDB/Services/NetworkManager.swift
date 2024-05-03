@@ -46,11 +46,11 @@ class NetworkManager: NetworkManagerProtocol {
                 return }
 
             do {
-                let search = try JSONDecoder().decode(Search.self, from: data)
+                let search = try self.decoder.decode(Search.self, from: data)
                 completion(.success(search))
             } catch {
                 do {
-                    let apiError = try JSONDecoder().decode(APIError.self, from: data)
+                    let apiError = try self.decoder.decode(APIError.self, from: data)
                     completion(.failure(FetchError.apiError(apiError)))
                 } catch {
                     completion(.failure(FetchError.invalidJsonParse))
