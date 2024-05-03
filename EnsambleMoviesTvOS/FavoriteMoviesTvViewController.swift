@@ -1,5 +1,5 @@
 //
-//  MovieDetailsTvViewController.swift
+//  FavoriteMoviesTvViewController.swift
 //  EnsambleMoviesTvOS
 //
 //  Created by Lucas C Barros on 2024-05-03.
@@ -8,7 +8,7 @@
 import UIKit
 import QuickUIKitDevTools
 
-class MovieDetailsTvViewController: UIViewController {
+class FavoriteMoviesTvViewController: UIViewController {
     
     // MARK: Views
     var movieDetailContainerView = UIView()
@@ -31,7 +31,7 @@ class MovieDetailsTvViewController: UIViewController {
 }
 
 // MARK: Setup UI
-extension MovieDetailsTvViewController: ViewCodable {
+extension FavoriteMoviesTvViewController: ViewCodable {
     func addHierarchy() {
         self.view.addSubviews([
                               movieDetailContainerView])
@@ -83,7 +83,7 @@ extension MovieDetailsTvViewController: ViewCodable {
     }
 }
 
-extension MovieDetailsTvViewController: UITableViewDelegate, UITableViewDataSource {
+extension FavoriteMoviesTvViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
@@ -95,7 +95,7 @@ extension MovieDetailsTvViewController: UITableViewDelegate, UITableViewDataSour
     }
 }
 
-extension MovieDetailsTvViewController: MainMenuViewControllerDelegate {
+extension FavoriteMoviesTvViewController: MainMenuViewControllerDelegate {
     func updateImageView(with imageData: Data) {
         self.moviePosterImage.image = UIImage(data: imageData)
     }
@@ -105,6 +105,6 @@ extension MovieDetailsTvViewController: MainMenuViewControllerDelegate {
     }
     
     func updateMovieList() {
-//        self.movieListTableView.reloadData()
+//        self.searchHistoryTableView.reloadData()
     }
 }

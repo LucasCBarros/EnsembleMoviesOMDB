@@ -14,7 +14,7 @@ class MovieSearchListTvViewcontroller: UIViewController {
     var movieListContainerView = UIView()
     var searchTextField = UITextField()
     var searchButton = UIButton()
-    var movieListTableView = UITableView()
+    var searchHistoryTableView = UITableView()
     
     var movieDetailContainerView = UIView()
     var moviePosterImage = UIImageView()
@@ -46,7 +46,7 @@ extension MovieSearchListTvViewcontroller: ViewCodable {
         
         movieListContainerView.addSubviews([searchTextField,
                                               searchButton,
-                                             movieListTableView])
+                                             searchHistoryTableView])
         
         movieDetailContainerView.addSubviews([movieTitle,
                                               moviePosterImage,
@@ -75,7 +75,7 @@ extension MovieSearchListTvViewcontroller: ViewCodable {
             .trailingToSuperview(25)
             .backgroundColor = .magenta
                                              
-        movieListTableView
+        searchHistoryTableView
             .topToBottom(of: searchTextField, margin: 25)
             .widthToSuperview(-50)
             .bottomToSuperview()
@@ -110,8 +110,8 @@ extension MovieSearchListTvViewcontroller: ViewCodable {
         movieDetailContainerView.backgroundColor = .systemBlue
         
         // Left
-        movieListTableView.dataSource = self
-        movieListTableView.delegate = self
+        searchHistoryTableView.dataSource = self
+        searchHistoryTableView.delegate = self
         
         searchTextField.placeholder = "Movie title"
         searchTextField.layer.cornerRadius = 15
@@ -158,7 +158,7 @@ extension MovieSearchListTvViewcontroller: MainMenuViewControllerDelegate {
     }
     
     func updateMovieList() {
-        self.movieListTableView.reloadData()
+        self.searchHistoryTableView.reloadData()
     }
 }
 //
