@@ -27,6 +27,23 @@
 		E67E9C142BE46F810011FA61 /* MovieDetailViewControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67E9C132BE46F810011FA61 /* MovieDetailViewControllerUITests.swift */; };
 		E67E9C162BE4A9270011FA61 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67E9C152BE4A9270011FA61 /* UIViewController+Extension.swift */; };
 		E67E9C182BE4BCF10011FA61 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = E67E9C172BE4BCF10011FA61 /* CHANGELOG.md */; };
+		E67E9C212BE4DF270011FA61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67E9C202BE4DF270011FA61 /* AppDelegate.swift */; };
+		E67E9C232BE4DF270011FA61 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67E9C222BE4DF270011FA61 /* MainMenuViewController.swift */; };
+		E67E9C262BE4DF270011FA61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E67E9C242BE4DF270011FA61 /* Main.storyboard */; };
+		E67E9C282BE4DF290011FA61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E67E9C272BE4DF290011FA61 /* Assets.xcassets */; };
+		E67E9C2B2BE4DF290011FA61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E67E9C292BE4DF290011FA61 /* LaunchScreen.storyboard */; };
+		E67E9C352BE4DF290011FA61 /* EnsambleMoviesTvOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67E9C342BE4DF290011FA61 /* EnsambleMoviesTvOSTests.swift */; };
+		E67E9C3F2BE4DF2A0011FA61 /* EnsambleMoviesTvOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67E9C3E2BE4DF2A0011FA61 /* EnsambleMoviesTvOSUITests.swift */; };
+		E67E9C412BE4DF2A0011FA61 /* EnsambleMoviesTvOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67E9C402BE4DF2A0011FA61 /* EnsambleMoviesTvOSUITestsLaunchTests.swift */; };
+		E67E9C4D2BE4DFB00011FA61 /* QuickUIKitDevTools in Frameworks */ = {isa = PBXBuildFile; productRef = E67E9C4C2BE4DFB00011FA61 /* QuickUIKitDevTools */; };
+		E67E9C4E2BE4EC6B0011FA61 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8AB52BE1AEC400C93686 /* NetworkManager.swift */; };
+		E67E9C4F2BE4EC740011FA61 /* FetchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67E9BC42BE43FDC0011FA61 /* FetchError.swift */; };
+		E67E9C502BE4EC850011FA61 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8AB22BE1AE8700C93686 /* Movie.swift */; };
+		E67E9C512BE4EC850011FA61 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67E9BC02BE43F800011FA61 /* Search.swift */; };
+		E67E9C522BE4EE380011FA61 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67E9C152BE4A9270011FA61 /* UIViewController+Extension.swift */; };
+		E67E9C532BE4EF430011FA61 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67E9BC62BE440050011FA61 /* Constants.swift */; };
+		E67E9C552BE567C60011FA61 /* MovieSearchListTvViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67E9C542BE567C60011FA61 /* MovieSearchListTvViewcontroller.swift */; };
+		E67E9C572BE568090011FA61 /* MovieDetailsTvViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67E9C562BE568090011FA61 /* MovieDetailsTvViewController.swift */; };
 		E69C0CCD2BE2F14A00D09293 /* MovieSearchListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69C0CCC2BE2F14A00D09293 /* MovieSearchListViewControllerTests.swift */; };
 		E69C0CCF2BE2F66600D09293 /* MovieSearchListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69C0CCE2BE2F66600D09293 /* MovieSearchListViewModelTests.swift */; };
 		E6AB8A6E2BE1A56100C93686 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8A6D2BE1A56100C93686 /* AppDelegate.swift */; };
@@ -49,6 +66,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = E6AB8A692BE1A56100C93686;
 			remoteInfo = EnsembleMoviesInOMDB;
+		};
+		E67E9C312BE4DF290011FA61 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E6AB8A622BE1A56100C93686 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E67E9C1D2BE4DF270011FA61;
+			remoteInfo = EnsambleMoviesTvOS;
+		};
+		E67E9C3B2BE4DF2A0011FA61 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E6AB8A622BE1A56100C93686 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E67E9C1D2BE4DF270011FA61;
+			remoteInfo = EnsambleMoviesTvOS;
 		};
 		E6AB8B412BE2BC0800C93686 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -78,6 +109,19 @@
 		E67E9C132BE46F810011FA61 /* MovieDetailViewControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewControllerUITests.swift; sourceTree = "<group>"; };
 		E67E9C152BE4A9270011FA61 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		E67E9C172BE4BCF10011FA61 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
+		E67E9C1E2BE4DF270011FA61 /* EnsambleMoviesTvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnsambleMoviesTvOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E67E9C202BE4DF270011FA61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E67E9C222BE4DF270011FA61 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
+		E67E9C252BE4DF270011FA61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E67E9C272BE4DF290011FA61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E67E9C2A2BE4DF290011FA61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E67E9C302BE4DF290011FA61 /* EnsambleMoviesTvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EnsambleMoviesTvOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E67E9C342BE4DF290011FA61 /* EnsambleMoviesTvOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsambleMoviesTvOSTests.swift; sourceTree = "<group>"; };
+		E67E9C3A2BE4DF290011FA61 /* EnsambleMoviesTvOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EnsambleMoviesTvOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E67E9C3E2BE4DF2A0011FA61 /* EnsambleMoviesTvOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsambleMoviesTvOSUITests.swift; sourceTree = "<group>"; };
+		E67E9C402BE4DF2A0011FA61 /* EnsambleMoviesTvOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsambleMoviesTvOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E67E9C542BE567C60011FA61 /* MovieSearchListTvViewcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchListTvViewcontroller.swift; sourceTree = "<group>"; };
+		E67E9C562BE568090011FA61 /* MovieDetailsTvViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsTvViewController.swift; sourceTree = "<group>"; };
 		E69C0CCC2BE2F14A00D09293 /* MovieSearchListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchListViewControllerTests.swift; sourceTree = "<group>"; };
 		E69C0CCE2BE2F66600D09293 /* MovieSearchListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchListViewModelTests.swift; sourceTree = "<group>"; };
 		E6AB8A6A2BE1A56100C93686 /* EnsembleMoviesInOMDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnsembleMoviesInOMDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,6 +142,28 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		E67E9BA32BE376360011FA61 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E67E9C1B2BE4DF270011FA61 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E67E9C4D2BE4DFB00011FA61 /* QuickUIKitDevTools in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E67E9C2D2BE4DF290011FA61 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E67E9C372BE4DF290011FA61 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -157,6 +223,44 @@
 			path = Features;
 			sourceTree = "<group>";
 		};
+		E67E9C1F2BE4DF270011FA61 /* EnsambleMoviesTvOS */ = {
+			isa = PBXGroup;
+			children = (
+				E67E9C202BE4DF270011FA61 /* AppDelegate.swift */,
+				E67E9C222BE4DF270011FA61 /* MainMenuViewController.swift */,
+				E67E9C542BE567C60011FA61 /* MovieSearchListTvViewcontroller.swift */,
+				E67E9C562BE568090011FA61 /* MovieDetailsTvViewController.swift */,
+				E67E9C242BE4DF270011FA61 /* Main.storyboard */,
+				E67E9C272BE4DF290011FA61 /* Assets.xcassets */,
+				E67E9C292BE4DF290011FA61 /* LaunchScreen.storyboard */,
+			);
+			path = EnsambleMoviesTvOS;
+			sourceTree = "<group>";
+		};
+		E67E9C332BE4DF290011FA61 /* EnsambleMoviesTvOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				E67E9C342BE4DF290011FA61 /* EnsambleMoviesTvOSTests.swift */,
+			);
+			path = EnsambleMoviesTvOSTests;
+			sourceTree = "<group>";
+		};
+		E67E9C3D2BE4DF2A0011FA61 /* EnsambleMoviesTvOSUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E67E9C3E2BE4DF2A0011FA61 /* EnsambleMoviesTvOSUITests.swift */,
+				E67E9C402BE4DF2A0011FA61 /* EnsambleMoviesTvOSUITestsLaunchTests.swift */,
+			);
+			path = EnsambleMoviesTvOSUITests;
+			sourceTree = "<group>";
+		};
+		E67E9C4B2BE4DFB00011FA61 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E69C0CCB2BE2F12C00D09293 /* Search Movie */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,7 +277,11 @@
 				E6AB8A6C2BE1A56100C93686 /* EnsembleMoviesInOMDB */,
 				E6AB8B3E2BE2BC0700C93686 /* EnsembleMoviesInOMDBTests */,
 				E67E9BA72BE376360011FA61 /* EnsembleMoviesInOMDBUITests */,
+				E67E9C1F2BE4DF270011FA61 /* EnsambleMoviesTvOS */,
+				E67E9C332BE4DF290011FA61 /* EnsambleMoviesTvOSTests */,
+				E67E9C3D2BE4DF2A0011FA61 /* EnsambleMoviesTvOSUITests */,
 				E6AB8A6B2BE1A56100C93686 /* Products */,
+				E67E9C4B2BE4DFB00011FA61 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -183,6 +291,9 @@
 				E6AB8A6A2BE1A56100C93686 /* EnsembleMoviesInOMDB.app */,
 				E6AB8B3D2BE2BC0700C93686 /* EnsembleMoviesInOMDBTests.xctest */,
 				E67E9BA62BE376360011FA61 /* EnsembleMoviesInOMDBUITests.xctest */,
+				E67E9C1E2BE4DF270011FA61 /* EnsambleMoviesTvOS.app */,
+				E67E9C302BE4DF290011FA61 /* EnsambleMoviesTvOSTests.xctest */,
+				E67E9C3A2BE4DF290011FA61 /* EnsambleMoviesTvOSUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -327,6 +438,62 @@
 			productReference = E67E9BA62BE376360011FA61 /* EnsembleMoviesInOMDBUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		E67E9C1D2BE4DF270011FA61 /* EnsambleMoviesTvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E67E9C482BE4DF2A0011FA61 /* Build configuration list for PBXNativeTarget "EnsambleMoviesTvOS" */;
+			buildPhases = (
+				E67E9C1A2BE4DF270011FA61 /* Sources */,
+				E67E9C1B2BE4DF270011FA61 /* Frameworks */,
+				E67E9C1C2BE4DF270011FA61 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EnsambleMoviesTvOS;
+			packageProductDependencies = (
+				E67E9C4C2BE4DFB00011FA61 /* QuickUIKitDevTools */,
+			);
+			productName = EnsambleMoviesTvOS;
+			productReference = E67E9C1E2BE4DF270011FA61 /* EnsambleMoviesTvOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E67E9C2F2BE4DF290011FA61 /* EnsambleMoviesTvOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E67E9C492BE4DF2A0011FA61 /* Build configuration list for PBXNativeTarget "EnsambleMoviesTvOSTests" */;
+			buildPhases = (
+				E67E9C2C2BE4DF290011FA61 /* Sources */,
+				E67E9C2D2BE4DF290011FA61 /* Frameworks */,
+				E67E9C2E2BE4DF290011FA61 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E67E9C322BE4DF290011FA61 /* PBXTargetDependency */,
+			);
+			name = EnsambleMoviesTvOSTests;
+			productName = EnsambleMoviesTvOSTests;
+			productReference = E67E9C302BE4DF290011FA61 /* EnsambleMoviesTvOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E67E9C392BE4DF290011FA61 /* EnsambleMoviesTvOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E67E9C4A2BE4DF2A0011FA61 /* Build configuration list for PBXNativeTarget "EnsambleMoviesTvOSUITests" */;
+			buildPhases = (
+				E67E9C362BE4DF290011FA61 /* Sources */,
+				E67E9C372BE4DF290011FA61 /* Frameworks */,
+				E67E9C382BE4DF290011FA61 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E67E9C3C2BE4DF2A0011FA61 /* PBXTargetDependency */,
+			);
+			name = EnsambleMoviesTvOSUITests;
+			productName = EnsambleMoviesTvOSUITests;
+			productReference = E67E9C3A2BE4DF290011FA61 /* EnsambleMoviesTvOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		E6AB8A692BE1A56100C93686 /* EnsembleMoviesInOMDB */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E6AB8A942BE1A56400C93686 /* Build configuration list for PBXNativeTarget "EnsembleMoviesInOMDB" */;
@@ -380,6 +547,17 @@
 						CreatedOnToolsVersion = 15.0.1;
 						TestTargetID = E6AB8A692BE1A56100C93686;
 					};
+					E67E9C1D2BE4DF270011FA61 = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					E67E9C2F2BE4DF290011FA61 = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = E67E9C1D2BE4DF270011FA61;
+					};
+					E67E9C392BE4DF290011FA61 = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = E67E9C1D2BE4DF270011FA61;
+					};
 					E6AB8A692BE1A56100C93686 = {
 						CreatedOnToolsVersion = 15.0.1;
 					};
@@ -408,12 +586,39 @@
 				E6AB8A692BE1A56100C93686 /* EnsembleMoviesInOMDB */,
 				E6AB8B3C2BE2BC0700C93686 /* EnsembleMoviesInOMDBTests */,
 				E67E9BA52BE376360011FA61 /* EnsembleMoviesInOMDBUITests */,
+				E67E9C1D2BE4DF270011FA61 /* EnsambleMoviesTvOS */,
+				E67E9C2F2BE4DF290011FA61 /* EnsambleMoviesTvOSTests */,
+				E67E9C392BE4DF290011FA61 /* EnsambleMoviesTvOSUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		E67E9BA42BE376360011FA61 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E67E9C1C2BE4DF270011FA61 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E67E9C2B2BE4DF290011FA61 /* LaunchScreen.storyboard in Resources */,
+				E67E9C282BE4DF290011FA61 /* Assets.xcassets in Resources */,
+				E67E9C262BE4DF270011FA61 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E67E9C2E2BE4DF290011FA61 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E67E9C382BE4DF290011FA61 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -475,6 +680,40 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E67E9C1A2BE4DF270011FA61 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E67E9C4E2BE4EC6B0011FA61 /* NetworkManager.swift in Sources */,
+				E67E9C232BE4DF270011FA61 /* MainMenuViewController.swift in Sources */,
+				E67E9C212BE4DF270011FA61 /* AppDelegate.swift in Sources */,
+				E67E9C512BE4EC850011FA61 /* Search.swift in Sources */,
+				E67E9C522BE4EE380011FA61 /* UIViewController+Extension.swift in Sources */,
+				E67E9C552BE567C60011FA61 /* MovieSearchListTvViewcontroller.swift in Sources */,
+				E67E9C4F2BE4EC740011FA61 /* FetchError.swift in Sources */,
+				E67E9C502BE4EC850011FA61 /* Movie.swift in Sources */,
+				E67E9C572BE568090011FA61 /* MovieDetailsTvViewController.swift in Sources */,
+				E67E9C532BE4EF430011FA61 /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E67E9C2C2BE4DF290011FA61 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E67E9C352BE4DF290011FA61 /* EnsambleMoviesTvOSTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E67E9C362BE4DF290011FA61 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E67E9C412BE4DF2A0011FA61 /* EnsambleMoviesTvOSUITestsLaunchTests.swift in Sources */,
+				E67E9C3F2BE4DF2A0011FA61 /* EnsambleMoviesTvOSUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E6AB8A662BE1A56100C93686 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -520,6 +759,16 @@
 			target = E6AB8A692BE1A56100C93686 /* EnsembleMoviesInOMDB */;
 			targetProxy = E67E9BAC2BE376360011FA61 /* PBXContainerItemProxy */;
 		};
+		E67E9C322BE4DF290011FA61 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E67E9C1D2BE4DF270011FA61 /* EnsambleMoviesTvOS */;
+			targetProxy = E67E9C312BE4DF290011FA61 /* PBXContainerItemProxy */;
+		};
+		E67E9C3C2BE4DF2A0011FA61 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E67E9C1D2BE4DF270011FA61 /* EnsambleMoviesTvOS */;
+			targetProxy = E67E9C3B2BE4DF2A0011FA61 /* PBXContainerItemProxy */;
+		};
 		E6AB8B422BE2BC0800C93686 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E6AB8A692BE1A56100C93686 /* EnsembleMoviesInOMDB */;
@@ -528,6 +777,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		E67E9C242BE4DF270011FA61 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E67E9C252BE4DF270011FA61 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E67E9C292BE4DF290011FA61 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E67E9C2A2BE4DF290011FA61 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		E6AB8A782BE1A56300C93686 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -570,6 +835,148 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = EnsembleMoviesInOMDB;
+			};
+			name = Release;
+		};
+		E67E9C422BE4DF2A0011FA61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 987J4BXX78;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LucasCB.EnsambleMoviesTvOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 17.0;
+			};
+			name = Debug;
+		};
+		E67E9C432BE4DF2A0011FA61 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 987J4BXX78;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LucasCB.EnsambleMoviesTvOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 17.0;
+			};
+			name = Release;
+		};
+		E67E9C442BE4DF2A0011FA61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 987J4BXX78;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LucasCB.EnsambleMoviesTvOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EnsambleMoviesTvOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/EnsambleMoviesTvOS";
+				TVOS_DEPLOYMENT_TARGET = 17.0;
+			};
+			name = Debug;
+		};
+		E67E9C452BE4DF2A0011FA61 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 987J4BXX78;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LucasCB.EnsambleMoviesTvOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EnsambleMoviesTvOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/EnsambleMoviesTvOS";
+				TVOS_DEPLOYMENT_TARGET = 17.0;
+			};
+			name = Release;
+		};
+		E67E9C462BE4DF2A0011FA61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 987J4BXX78;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LucasCB.EnsambleMoviesTvOSUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TEST_TARGET_NAME = EnsambleMoviesTvOS;
+				TVOS_DEPLOYMENT_TARGET = 17.0;
+			};
+			name = Debug;
+		};
+		E67E9C472BE4DF2A0011FA61 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 987J4BXX78;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LucasCB.EnsambleMoviesTvOSUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TEST_TARGET_NAME = EnsambleMoviesTvOS;
+				TVOS_DEPLOYMENT_TARGET = 17.0;
 			};
 			name = Release;
 		};
@@ -794,6 +1201,33 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		E67E9C482BE4DF2A0011FA61 /* Build configuration list for PBXNativeTarget "EnsambleMoviesTvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E67E9C422BE4DF2A0011FA61 /* Debug */,
+				E67E9C432BE4DF2A0011FA61 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E67E9C492BE4DF2A0011FA61 /* Build configuration list for PBXNativeTarget "EnsambleMoviesTvOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E67E9C442BE4DF2A0011FA61 /* Debug */,
+				E67E9C452BE4DF2A0011FA61 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E67E9C4A2BE4DF2A0011FA61 /* Build configuration list for PBXNativeTarget "EnsambleMoviesTvOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E67E9C462BE4DF2A0011FA61 /* Debug */,
+				E67E9C472BE4DF2A0011FA61 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E6AB8A652BE1A56100C93686 /* Build configuration list for PBXProject "EnsembleMoviesInOMDB" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -836,6 +1270,11 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		E67E9C112BE46B240011FA61 /* QuickUIKitDevTools */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E67E9C102BE46B240011FA61 /* XCRemoteSwiftPackageReference "QuickUIKitDevTools" */;
+			productName = QuickUIKitDevTools;
+		};
+		E67E9C4C2BE4DFB00011FA61 /* QuickUIKitDevTools */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E67E9C102BE46B240011FA61 /* XCRemoteSwiftPackageReference "QuickUIKitDevTools" */;
 			productName = QuickUIKitDevTools;
