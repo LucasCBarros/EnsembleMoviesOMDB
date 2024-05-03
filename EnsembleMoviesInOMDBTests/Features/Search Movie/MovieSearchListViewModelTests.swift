@@ -62,7 +62,7 @@ final class MovieSearchListViewModelTests: XCTestCase {
                 XCTAssertNil(search, "The expected result should be a failure")
             case.failure(let error):
                 // THEN
-                XCTAssertEqual(error.description(), "Invalid server data")
+                XCTAssertEqual(error.description, "Invalid server data")
                 XCTAssertNotNil(error, "The expected result should have an error of type .invalidData")
             }
         })

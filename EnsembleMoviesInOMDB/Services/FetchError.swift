@@ -14,18 +14,18 @@ enum FetchError: Error {
     case invalidJsonParse
     case apiError(APIError)
     
-    func description() -> String {
+    var description: String {
         switch self {
         case .invalidURL:
-            return "Invalid server URL"
+            "Invalid server URL"
         case .invalidResponse:
-            return "Invalid server response"
+            "Invalid server response"
         case .invalidData:
-            return "Invalid server data"
+            "Invalid server data"
         case .invalidJsonParse:
-            return "Invalid json parsing"
+            "Invalid json parsing"
         case .apiError(let error):
-            return "Server error: \(error.error)"
+            "Server error: \(error.error)"
         }
     }
 }

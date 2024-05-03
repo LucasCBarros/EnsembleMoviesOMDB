@@ -74,23 +74,8 @@ class MovieSearchListViewModel: MovieSearchListViewModelProtocol {
                                           description: error.localizedDescription)
                 return
             }
-            switch error {
-            case .invalidURL:
-                self.delegate?.alertError(title: "Ops! Unfortunate error:",
-                                          description: error.description())
-            case .invalidResponse:
-                self.delegate?.alertError(title: "Ops! Unfortunate error:",
-                                          description: error.description())
-            case .invalidData:
-                self.delegate?.alertError(title: "Ops! Unfortunate error:",
-                                          description: error.description())
-            case .invalidJsonParse:
-                self.delegate?.alertError(title: "Ops! Unfortunate error:",
-                                          description: error.description())
-            case .apiError(_):
-                self.delegate?.alertError(title: "Ops! Unfortunate error:",
-                                          description: error.description())
-            }
+            self.delegate?.alertError(title: "Ops! Unfortunate error:",
+                                      description: error.description)
         }
     }
     

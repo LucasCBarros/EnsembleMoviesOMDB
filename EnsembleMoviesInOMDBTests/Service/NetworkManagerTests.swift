@@ -69,7 +69,7 @@ final class NetworkManagerTests: XCTestCase {
                 XCTAssertNil(search, "Result should be nil")
             case .failure(let error):
                 XCTAssertNotNil(error)
-                XCTAssertEqual(error.description(), "Invalid json parsing", "The JSON should be invalid")
+                XCTAssertEqual(error.description, "Invalid json parsing", "The JSON should be invalid")
             }
         })
     }
@@ -91,7 +91,7 @@ final class NetworkManagerTests: XCTestCase {
                 XCTAssertNil(imageData, "Should be nil")
             case .failure(let error):
                 XCTAssertNotNil(error)
-                XCTAssertEqual(error.description(), "Invalid server response", "The response should be invalid")
+                XCTAssertEqual(error.description, "Invalid server response", "The response should be invalid")
             }
         })
     }
@@ -112,7 +112,7 @@ final class NetworkManagerTests: XCTestCase {
                 XCTAssertNil(imageData, "Should be nil")
             case .failure(let error):
                 XCTAssertNotNil(error)
-                XCTAssertEqual(error.description(), "Invalid server data", "The data should be invalid")
+                XCTAssertEqual(error.description, "Invalid server data", "The data should be invalid")
             }
         })
     }
@@ -157,7 +157,7 @@ final class NetworkManagerTests: XCTestCase {
                 XCTAssertNil(imageData, "Should be nil")
             case .failure(let error):
                 XCTAssertNotNil(error)
-                XCTAssertEqual(error.description(), "Invalid server data", "The data should be invalid")
+                XCTAssertEqual(error.description, "Invalid server data", "The data should be invalid")
             }
         })
     }
@@ -178,7 +178,7 @@ final class NetworkManagerTests: XCTestCase {
                 XCTAssertNil(imageData, "Should be nil")
             case .failure(let error):
                 XCTAssertNotNil(error)
-                XCTAssertEqual(error.description(), "Invalid server response", "The response should be invalid")
+                XCTAssertEqual(error.description, "Invalid server response", "The response should be invalid")
             }
         })
     }

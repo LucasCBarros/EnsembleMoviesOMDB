@@ -74,19 +74,19 @@ final class MovieDetailViewModelTests: XCTestCase {
                     XCTAssertNotNil(error, "The expected result should have an error of type .apiError")
                     switch error {
                     case .invalidURL:
-                        XCTAssertEqual(error.description(), "Invalid server URL")
+                        XCTAssertEqual(error.description, "Invalid server URL")
                         XCTAssertNotNil(error, "The expected result should have an error of type .invalidURL")
                     case .invalidResponse:
-                        XCTAssertEqual(error.description(), "Invalid server response")
+                        XCTAssertEqual(error.description, "Invalid server response")
                         XCTAssertNotNil(error, "The expected result should have an error of type .invalidResponse")
                     case .invalidData:
-                        XCTAssertEqual(error.description(), "Invalid server data")
+                        XCTAssertEqual(error.description, "Invalid server data")
                         XCTAssertNotNil(error, "The expected result should have an error of type .invalidData")
                     case .invalidJsonParse:
-                        XCTAssertEqual(error.description(), "Invalid json parsing")
+                        XCTAssertEqual(error.description, "Invalid json parsing")
                         XCTAssertNotNil(error, "The expected result should have an error of type .invalidJsonParse")
                     case .apiError(let apiError):
-                        XCTAssertEqual(error.description(), "Server error: \(apiError.error)")
+                        XCTAssertEqual(error.description, "Server error: \(apiError.error)")
                         
                     }
                 }

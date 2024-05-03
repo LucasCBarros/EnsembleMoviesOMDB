@@ -66,7 +66,7 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
         // Update views in main thread
         DispatchQueue.main.async {
             self.delegate?.alertError(title: "Ops! Unfortunate error:",
-                                      description: error.description())
+                                      description: error.description)
         }
     }
 }

@@ -41,21 +41,6 @@ final class EnsembleMoviesInOMDBUITests: XCTestCase {
     }
     
     func testNew() {
-        let app = XCUIApplication()
         
-        let moviesListNavigationBar = app.navigationBars["Movies list"]
-        
-        moviesListNavigationBar.buttons["Hide search"].tap()
-        
-        moviesListNavigationBar.buttons["Search"].tap()
-        
-        moviesListNavigationBar.buttons["Custom cell"].tap()
-        
-        moviesListNavigationBar.buttons["Generic cell"].tap()
-        
-        app.textFields["Search movie by title"].tap()
-        
-        app/*@START_MENU_TOKEN@*/.staticTexts["Search"]/*[[".buttons[\"Search\"].staticTexts[\"Search\"]",".staticTexts[\"Search\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-                
     }
 }
