@@ -44,7 +44,7 @@ class MovieSearchListViewController: UIViewController {
     }
 
     @objc func tapCustomCellFeatureButton() {
-        navigationItem.leftBarButtonItem?.title = withCustomCell ? "Generic cell" : "Custom cell"
+        navigationItem.leftBarButtonItem?.title = withCustomCell ? "Custom cell" : "Generic cell"
         movieTableView.reloadData()
         withCustomCell.toggle()
     }

@@ -63,13 +63,13 @@ final class MovieSearchListViewControllerUITests: XCTestCase {
         startSearchButton.tap()
 
         // Test both cell types
-        let toggleCustomTableViewCellButton = moviesListNavigationBar.buttons["Custom cell"]
-        XCTAssertTrue(toggleCustomTableViewCellButton.exists)
-        toggleCustomTableViewCellButton.tap()
-
         let toggleGenericTableViewCellButton = moviesListNavigationBar.buttons["Generic cell"]
         XCTAssertTrue(toggleGenericTableViewCellButton.exists)
         toggleGenericTableViewCellButton.tap()
+
+        let toggleCustomTableViewCellButton = moviesListNavigationBar.buttons["Custom cell"]
+        XCTAssertTrue(toggleCustomTableViewCellButton.exists)
+        toggleCustomTableViewCellButton.tap()
     }
 
     // MARK: Open tableViewCell

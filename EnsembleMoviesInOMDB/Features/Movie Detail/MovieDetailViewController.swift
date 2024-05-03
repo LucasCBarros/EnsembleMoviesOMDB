@@ -73,12 +73,10 @@ extension MovieDetailViewController: ViewCodable {
         viewModel?.fetchMoviePoster()
 
         movieTitleLabel.numberOfLines = 0
-        movieTitleLabel.textColor = .purple
         movieTitleLabel.textAlignment = .center
         movieTitleLabel.font = .systemFont(ofSize: 24, weight: .heavy)
 
         movieReleasedDateLabel.font = .systemFont(ofSize: 18, weight: .semibold)
-        movieReleasedDateLabel.textColor = .orange
         movieReleasedDateLabel.textAlignment = .center
 
         self.title = "Movie Details"

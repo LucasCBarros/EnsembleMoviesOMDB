@@ -125,12 +125,12 @@ final class MovieSearchListViewControllerTests: XCTestCase {
         // THEN
         XCTAssertNotNil(viewController.movieTableView.visibleCells.first)
         XCTAssertTrue(viewController.movieTableView.visibleCells.first is UITableViewCell)
-        XCTAssertEqual(viewController.navigationItem.leftBarButtonItem?.title, "Generic cell")
+        XCTAssertEqual(viewController.navigationItem.leftBarButtonItem?.title, "Custom cell")
 
         // AND
         viewController.tapCustomCellFeatureButton()
         XCTAssertTrue(viewController.movieTableView.visibleCells.first is MovieSearchTableViewCell)
-        XCTAssertEqual(viewController.navigationItem.leftBarButtonItem?.title, "Custom cell")
+        XCTAssertEqual(viewController.navigationItem.leftBarButtonItem?.title, "Generic cell")
     }
 
     func testTableViewDidSelectRow() {
