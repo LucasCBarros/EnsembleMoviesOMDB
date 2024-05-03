@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import QuickUIKitDevTools
 
 /// NOTE: The image in the cell is commented to avoid needing to make the call for all images in the list and call it just in the detail instead
 /// Left it commented in case having the image in the search view is the requirement

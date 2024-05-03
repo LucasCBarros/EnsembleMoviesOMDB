@@ -5,6 +5,7 @@
 //  Created by Lucas C Barros on 2024-04-30.
 //
 
+import QuickUIKitDevTools
 import UIKit
 
 class MovieSearchListViewController: UIViewController {

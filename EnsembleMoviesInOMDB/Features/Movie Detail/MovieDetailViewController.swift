@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import QuickUIKitDevTools
 
 class MovieDetailViewController: UIViewController {
     // MARK: Views
