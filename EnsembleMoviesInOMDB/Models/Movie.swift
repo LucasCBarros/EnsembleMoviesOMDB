@@ -13,7 +13,7 @@ struct Movie: Codable {
     var imdbID: String
     var poster: String
     var posterImage: Data?
-    
+
     enum CodingKeys: String, CodingKey {
         case title = "Title"
         case released = "Year"

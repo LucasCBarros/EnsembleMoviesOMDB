@@ -38,7 +38,6 @@
 		E6AB8AB32BE1AE8700C93686 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8AB22BE1AE8700C93686 /* Movie.swift */; };
 		E6AB8AB62BE1AEC400C93686 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8AB52BE1AEC400C93686 /* NetworkManager.swift */; };
 		E6AB8AB92BE1BF6B00C93686 /* MovieSearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8AB82BE1BF6B00C93686 /* MovieSearchListViewController.swift */; };
-		E6AB8B482BE2BC2000C93686 /* EmsembleMoviesInOMDBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8B462BE2BC2000C93686 /* EmsembleMoviesInOMDBTests.swift */; };
 		E6AB8B492BE2BC2000C93686 /* MovieDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8B472BE2BC2000C93686 /* MovieDetailViewModelTests.swift */; };
 		E6AB8B522BE2C18800C93686 /* NetworkManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB8B512BE2C18800C93686 /* NetworkManagerMock.swift */; };
 /* End PBXBuildFile section */
@@ -93,7 +92,6 @@
 		E6AB8AB52BE1AEC400C93686 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E6AB8AB82BE1BF6B00C93686 /* MovieSearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchListViewController.swift; sourceTree = "<group>"; };
 		E6AB8B3D2BE2BC0700C93686 /* EnsembleMoviesInOMDBTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EnsembleMoviesInOMDBTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E6AB8B462BE2BC2000C93686 /* EmsembleMoviesInOMDBTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmsembleMoviesInOMDBTests.swift; sourceTree = "<group>"; };
 		E6AB8B472BE2BC2000C93686 /* MovieDetailViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailViewModelTests.swift; sourceTree = "<group>"; };
 		E6AB8B512BE2C18800C93686 /* NetworkManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerMock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -272,7 +270,6 @@
 		E6AB8B3E2BE2BC0700C93686 /* EnsembleMoviesInOMDBTests */ = {
 			isa = PBXGroup;
 			children = (
-				E6AB8B462BE2BC2000C93686 /* EmsembleMoviesInOMDBTests.swift */,
 				E67E9BB52BE419150011FA61 /* Service */,
 				E6AB8B532BE2C9B300C93686 /* Features */,
 				E6AB8B4C2BE2C0CE00C93686 /* Mocks */,
@@ -337,6 +334,7 @@
 				E6AB8A662BE1A56100C93686 /* Sources */,
 				E6AB8A672BE1A56100C93686 /* Frameworks */,
 				E6AB8A682BE1A56100C93686 /* Resources */,
+				E67E9C192BE4D3C10011FA61 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -444,6 +442,28 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		E67E9C192BE4D3C10011FA61 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from\n    hhtps://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E67E9BA22BE376360011FA61 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -489,7 +509,6 @@
 				E67E9BBB2BE419D40011FA61 /* MockURLprotocol.swift in Sources */,
 				E6AB8B522BE2C18800C93686 /* NetworkManagerMock.swift in Sources */,
 				E67E9B9E2BE3592C0011FA61 /* Movie.json in Sources */,
-				E6AB8B482BE2BC2000C93686 /* EmsembleMoviesInOMDBTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,7 +610,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -654,7 +673,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

@@ -14,7 +14,7 @@ class MovieSearchListViewController: UIViewController {
     let searchTextField = UITextField()
     let searchButton = UIButton()
     let movieTableView = UITableView()
-    
+
     // MARK: Properties
     var viewModel: MovieSearchListViewModelProtocol? = MovieSearchListViewModel()
     var shouldSearch: Bool = true
@@ -26,23 +26,23 @@ class MovieSearchListViewController: UIViewController {
         viewModel?.delegate = self
         setupUI()
     }
-    
+
     // MARK: Actions
     @objc func tapSearchButton() {
         guard let searchText = searchTextField.text else { return }
         viewModel?.fetchMovies(with: searchText)
     }
-    
+
     @objc func tapToggleSearchFeatureButton() {
         // Hide search components with animation
-        searchButton.hideSlideY(y: shouldSearch ? -30 : 100, shouldHide: shouldSearch)
-        searchTextField.hideSlideY(y: shouldSearch ? -30 : 100, shouldHide: shouldSearch)
-        movieTableView.hideSlideY(y: shouldSearch ? 1 : searchButton.frame.origin.y+30+25, shouldHide: false)
-        
+        searchButton.hideSlideY(yAxis: shouldSearch ? -30 : 100, shouldHide: shouldSearch)
+        searchTextField.hideSlideY(yAxis: shouldSearch ? -30 : 100, shouldHide: shouldSearch)
+        movieTableView.hideSlideY(yAxis: shouldSearch ? 1 : searchButton.frame.origin.y+30+25, shouldHide: false)
+
         navigationItem.rightBarButtonItem?.title = shouldSearch ? "Search" : "Hide search"
         shouldSearch.toggle()
     }
-    
+
     @objc func tapCustomCellFeatureButton() {
         navigationItem.leftBarButtonItem?.title = withCustomCell ? "Generic cell" : "Custom cell"
         movieTableView.reloadData()
@@ -55,10 +55,11 @@ extension MovieSearchListViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel?.movies.count ?? 0
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if withCustomCell {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieSearchTableViewCell.identifier, for: indexPath) as? MovieSearchTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieSearchTableViewCell.identifier,
+                                                           for: indexPath) as? MovieSearchTableViewCell else {
                 fatalError("The tableView could not dequeue a MovieSearchTableViewCell in ViewController")
             }
             guard let movies = viewModel?.movies[indexPath.row] else { return UITableViewCell() }
@@ -71,7 +72,7 @@ extension MovieSearchListViewController: UITableViewDelegate, UITableViewDataSou
             return cell
         }
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let navigation = self.navigationController,
               let movies = viewModel?.movies[indexPath.row] else { return }
@@ -79,20 +80,20 @@ extension MovieSearchListViewController: UITableViewDelegate, UITableViewDataSou
     }
 }
 
-
 // MARK: - Delegate Methods
 extension MovieSearchListViewController: MovieSearchListDelegate {
     func updateMovieList() {
         self.movieTableView.reloadData()
     }
-    
+
     func alertError(title: String, description: String) {
         popAlert(title: title, message: description)
     }
 }
 
-/// NOTE: I've separated each component into a different extension to exemplify how to isolate programmatic UI setup in a complex view
-/// This way we can close the code folding ribbons to view only relevant code
+/* NOTE: I've separated each component into a different
+ extension to exemplify how to isolate programmatic UI setup in a complex view
+ This way we can close the code folding ribbons to view only relevant code */
 // MARK: - Setup UI
 extension MovieSearchListViewController: ViewCodable {
     func addHierarchy() {
@@ -100,22 +101,22 @@ extension MovieSearchListViewController: ViewCodable {
             searchTextField,
             searchButton,
             movieTableView,
-            headerView,])
+            headerView])
     }
-    
+
     func addConstraints() {
         addNavigationBarConstraints()
         addSearchBarConstraints()
         addTableViewConstraints()
     }
-    
+
     func additionalConfig() {
         additionalSearchBarConfig()
         additionalTableViewConfig()
         additionalNavigationBarConfig()
         self.view.backgroundColor = .white
     }
-    
+
     func addAccessibility() {
         movieTableView.accessibilityLabel = "movieTableView"
     }
@@ -128,7 +129,7 @@ extension MovieSearchListViewController {
             .topToSuperview(toSafeArea: true)
             .leadingToSuperview(25)
             .heightTo(30)
-        
+
         searchButton
             .leadingToTrailing(of: searchTextField, margin: 15)
             .trailingToSuperview(25)
@@ -136,7 +137,7 @@ extension MovieSearchListViewController {
             .topToTop(of: searchTextField)
             .heightOf(searchTextField)
     }
-    
+
     func additionalSearchBarConfig() {
             searchTextField.placeholder = "Search movie by title"
             searchTextField.textColor = .blue
@@ -148,7 +149,7 @@ extension MovieSearchListViewController {
             searchTextField.layer.cornerRadius = 15
             searchTextField.layer.borderWidth = 1
             searchTextField.layer.borderColor = UIColor.gray.cgColor
-            
+
             searchButton.setTitle("Search", for: .normal)
             searchButton.setTitleColor(.white, for: .normal)
             searchButton.backgroundColor = .systemBlue
@@ -166,7 +167,7 @@ extension MovieSearchListViewController {
             .widthToSuperview(-50)
             .bottomToSuperview()
     }
-    
+
     func additionalTableViewConfig() {
         movieTableView.dataSource = self
         movieTableView.delegate = self
@@ -183,7 +184,7 @@ extension MovieSearchListViewController {
             .widthToSuperview()
             .backgroundColor = .white
     }
-    
+
     func additionalNavigationBarConfig() {
         self.title = "Movies list"
         self.navigationController?.navigationBar.backgroundColor = .white

@@ -9,19 +9,20 @@ import XCTest
 @testable import EnsembleMoviesInOMDB
 
 final class MovieDetailViewModelTests: XCTestCase {
-    
+    // MARK: Properties
     var networkManager: NetworkManagerMock?
     var viewModel: MovieDetailViewModel?
     var viewController: MovieDetailViewController?
 
+    // MARK: SetUp & TearDown
     override func setUp() {
         networkManager = NetworkManagerMock()
-        
+
         let movie = DataMockFactory.buildMovieMock()
         viewModel = MovieDetailViewModel(movie: movie,
                                          delegate: viewController.self,
                                          networkManager: networkManager)
-        
+
         viewController?.viewModel = viewModel
         viewController = MovieDetailViewController()
     }
@@ -31,10 +32,11 @@ final class MovieDetailViewModelTests: XCTestCase {
         viewModel = nil
     }
 
+    // MARK: Fetch Movie Poster Success
     func testFetchMoviePosterSuccess() {
         // GIVEN
         networkManager?.setReturnError(false)
-        
+
         // WHEN
         viewModel?.networkManager?.fetchMoviePoster(imageURL: "posterURL", completion: { response in
             switch response {
@@ -49,7 +51,8 @@ final class MovieDetailViewModelTests: XCTestCase {
             }
         })
     }
-    
+
+    // MARK: Fetch Movie Poster Failures
     func testFetchMoviePosterFailure() {
         // GIVEN
         let testErrors: [FetchError] = [
@@ -59,10 +62,10 @@ final class MovieDetailViewModelTests: XCTestCase {
             .invalidJsonParse,
             .apiError(APIError(response: "API Response",
                                error: "API Error"))]
-        
+
         for error in testErrors {
             networkManager?.setReturnError(true, with: error)
-            
+
             // WHEN
             viewModel?.networkManager?.fetchMoviePoster(imageURL: "posterURL", completion: { response in
                 switch response {
@@ -87,25 +90,25 @@ final class MovieDetailViewModelTests: XCTestCase {
                         XCTAssertNotNil(error, "The expected result should have an error of type .invalidJsonParse")
                     case .apiError(let apiError):
                         XCTAssertEqual(error.description, "Server error: \(apiError.error)")
-                        
                     }
                 }
             })
         }
     }
-    
+
+    // MARK: Update view with error
     func testUpdateViewWithError() {
         // GIVEN
         networkManager = NetworkManagerMock(shouldReturnError: true)
-        
+
         viewModel = MovieDetailViewModel(movie: DataMockFactory.buildMovieMock(),
                                          delegate: viewController.self,
                                          networkManager: networkManager)
         viewController?.viewModel = viewModel
-        
+
         // WHEN
         UIApplication.shared.windows.first?.rootViewController = viewController
-        
+
         // THEN
         let exp = expectation(description: "Test after 1.5 second wait")
         let result = XCTWaiter.wait(for: [exp], timeout: 1.5)
@@ -116,23 +119,24 @@ final class MovieDetailViewModelTests: XCTestCase {
             XCTFail("Delay interrupted")
         }
     }
-    
+
+    // MARK: Update view with image
     func testUpdateViewWithImage() {
         // GIVEN
         networkManager = NetworkManagerMock(shouldReturnError: false)
-        
+
         XCTAssertNil(viewController?.moviePosterView.image,
                       "moviePosterView should start without image")
-        
+
         let movie = DataMockFactory.buildMovieMock()
         viewModel = MovieDetailViewModel(movie: movie,
                                          delegate: viewController.self,
                                          networkManager: networkManager)
         viewController?.viewModel = viewModel
-        
+
         // WHEN
         viewController?.viewModel?.fetchMoviePoster()
-        
+
         // THEN
         let exp = expectation(description: "Test after 1.5 second wait")
         let result = XCTWaiter.wait(for: [exp], timeout: 1.5)

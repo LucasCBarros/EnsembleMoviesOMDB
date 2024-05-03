@@ -20,7 +20,7 @@ class DataMockFactory {
             return nil
         }
     }
-    
+
     static func buildMovieMock() -> Movie {
         return Movie(title: "Title",
                      released: "1991",
@@ -28,7 +28,7 @@ class DataMockFactory {
                      poster: "posterURL",
                      posterImage: nil)
     }
-    
+
     static func buildSearchMoviesMock() -> Search {
         let search = Search(movies: [
             Movie(title: "Movie01",
@@ -49,7 +49,7 @@ class DataMockFactory {
         ])
         return search
     }
-    
+
     static func buildImageDataMock() -> Data {
         return UIImage(systemName: "star")?.pngData() ?? Data(count: 10)
     }

@@ -9,7 +9,7 @@ import Foundation
 
 struct Search: Codable {
     var movies: [Movie]
-    
+
     enum CodingKeys: String, CodingKey {
         case movies = "Search"
     }

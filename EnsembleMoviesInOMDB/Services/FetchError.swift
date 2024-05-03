@@ -13,7 +13,7 @@ enum FetchError: Error {
     case invalidData
     case invalidJsonParse
     case apiError(APIError)
-    
+
     var description: String {
         switch self {
         case .invalidURL:
@@ -33,7 +33,7 @@ enum FetchError: Error {
 struct APIError: Codable {
     var response: String
     var error: String
-    
+
     enum CodingKeys: String, CodingKey {
         case response = "Response"
         case error = "Error"

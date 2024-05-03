@@ -9,31 +9,32 @@
 import XCTest
 
 final class MovieSearchListViewModelTests: XCTestCase {
-    
+    // MARK: Propeties
     var networkManager: NetworkManagerMock?
     var viewModel: MovieSearchListViewModel?
     var viewController: MovieSearchListViewController?
-    
+
+    // MARK: SetUp & TearDown
     override func setUp() {
         networkManager = NetworkManagerMock()
-        
+
         viewModel = MovieSearchListViewModel(movies: [],
                                              delegate: viewController.self,
                                              networkManager: networkManager)
         viewController?.viewModel = viewModel
         viewController = MovieSearchListViewController()
     }
-    
+
     override func tearDown() {
         networkManager = nil
         viewModel = nil
     }
-    
+    // MARK: Search Movie with success
     func testSearchMovieWithSuccess() {
         // GIVEN
         networkManager?.setReturnError(false)
         let searchTitle = "batman"
-        
+
         // WHEN
         viewModel?.networkManager?.fetchMovies(withTitle: searchTitle, completion: { response in
             switch response {
@@ -41,19 +42,20 @@ final class MovieSearchListViewModelTests: XCTestCase {
                 // THEN
                 XCTAssertEqual(search.movies.count, 3, "Response should contain same as the mock data")
                 XCTAssertNotNil(search, "The expected result should have an object with array of movies")
-                
+
             case.failure(let error):
                 // THEN
                 XCTAssertNil(error, "The expected result should be successful")
             }
         })
     }
-    
+
+    // MARK: Search Movie with failures
     func testSearchMovieWithFailure() {
         // GIVEN
         networkManager?.setReturnError(true)
         let searchTitle = "batman"
-        
+
         // WHEN
         viewModel?.networkManager?.fetchMovies(withTitle: searchTitle, completion: { response in
             switch response {
@@ -67,7 +69,8 @@ final class MovieSearchListViewModelTests: XCTestCase {
             }
         })
     }
-    
+
+    // MARK: Search Movie with empty string alert
     func testSearchMovieWithEmptyStringAlert() {
         // GIVEN
         networkManager?.setReturnError(false)
@@ -76,11 +79,11 @@ final class MovieSearchListViewModelTests: XCTestCase {
                                              networkManager: networkManager)
         viewController?.viewModel = viewModel
         let searchText = ""
-        
+
         // WHEN
         UIApplication.shared.windows.first?.rootViewController = viewController
         viewModel?.fetchMovies(with: searchText)
-        
+
         // THEN
         let exp = expectation(description: "Test after 1.5 second wait")
         let result = XCTWaiter.wait(for: [exp], timeout: 1.5)
@@ -94,7 +97,8 @@ final class MovieSearchListViewModelTests: XCTestCase {
             XCTFail("Delay interrupted")
         }
     }
-    
+
+    // MARK: Search Movie with short string alert
     func testSearchMovieWithSmallStringAlert() {
         // GIVEN
         networkManager?.setReturnError(false)
@@ -103,11 +107,11 @@ final class MovieSearchListViewModelTests: XCTestCase {
                                              networkManager: networkManager)
         viewController?.viewModel = viewModel
         let searchText = "12"
-        
+
         // WHEN
         UIApplication.shared.windows.first?.rootViewController = viewController
         viewModel?.fetchMovies(with: searchText)
-        
+
         // THEN
         let exp = expectation(description: "Test after 1.5 second wait")
         let result = XCTWaiter.wait(for: [exp], timeout: 1.5)
@@ -121,7 +125,8 @@ final class MovieSearchListViewModelTests: XCTestCase {
             XCTFail("Delay interrupted")
         }
     }
-    
+
+    // MARK: Update view with alert
     func testUpdateViewWithError() {
         // GIVEN
         let testErrors: [FetchError] = [
@@ -131,21 +136,20 @@ final class MovieSearchListViewModelTests: XCTestCase {
             .invalidJsonParse,
             .apiError(APIError(response: "API Response",
                                error: "API Error"))]
-        
+
         for error in testErrors {
             // WHEN
             networkManager = NetworkManagerMock(shouldReturnError: true)
             networkManager?.setReturnError(true, with: error)
-            
+
             viewModel = MovieSearchListViewModel(movies: [],
                                                  delegate: viewController.self,
                                                  networkManager: networkManager)
             viewController?.viewModel = viewModel
-            
-            
+
             UIApplication.shared.windows.first?.rootViewController = viewController
             viewController?.viewModel?.fetchMovies(with: "batman")
-            
+
             // THEN
             let exp = expectation(description: "Test after 1.5 second wait")
             let result = XCTWaiter.wait(for: [exp], timeout: 1.5)
@@ -157,7 +161,8 @@ final class MovieSearchListViewModelTests: XCTestCase {
             }
         }
     }
-    
+
+    // MARK: Update tableView with Movies
     func testUpdateTableViewWithMovies() {
         // GIVEN
         networkManager = NetworkManagerMock(shouldReturnError: false)
@@ -166,16 +171,16 @@ final class MovieSearchListViewModelTests: XCTestCase {
                                              delegate: viewController.self,
                                              networkManager: networkManager)
         viewController?.viewModel = viewModel
-        
+
         XCTAssertEqual(viewController?.viewModel?.movies.count, 0,
                        "movies inside viewModel shouldn't have any movies")
         XCTAssertEqual(viewController?.movieTableView.numberOfRows(inSection: 0), 0,
                        "movieTableView should start with zero cells")
-        
+
         // WHEN
         viewController?.viewModel?.fetchMovies(with: "batman")
         viewController?.loadViewIfNeeded()
-        
+
         // THEN
         let exp = expectation(description: "Test after 1.5 second wait")
         let result = XCTWaiter.wait(for: [exp], timeout: 1.5)
@@ -188,24 +193,25 @@ final class MovieSearchListViewModelTests: XCTestCase {
             XCTFail("Delay interrupted")
         }
     }
-    
+
+    // MARK: Navigate to MovieDetail screen
     func testNavigateToMovieDetail() {
         // GIVEN
         networkManager = NetworkManagerMock(shouldReturnError: false)
         let viewController = MovieSearchListViewController()
-        
+
         viewModel = MovieSearchListViewModel(movies: DataMockFactory.buildSearchMoviesMock().movies,
                                              delegate: viewController.self,
                                              networkManager: networkManager)
         viewController.viewModel = viewModel
-        
+
         let navigation = UINavigationController()
         navigation.viewControllers = [viewController]
-        
+
         UIApplication.shared.windows.first?.rootViewController = viewController
         viewController.viewModel?.navigateToMovieDetail(with: DataMockFactory.buildMovieMock(),
                                                          navigation: navigation)
-        
+
         // THEN
         let exp = expectation(description: "Test after 1.5 second wait")
         let result = XCTWaiter.wait(for: [exp], timeout: 1.5)

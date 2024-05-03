@@ -15,7 +15,7 @@ protocol MovieSearchListDelegate {
 protocol MovieSearchListViewModelProtocol {
     var movies: [Movie] { get set }
     var delegate: MovieSearchListDelegate? { get set }
-    
+
     func fetchMovies(with title: String)
     func navigateToMovieDetail(with movie: Movie, navigation: UINavigationController)
 }
@@ -25,9 +25,9 @@ class MovieSearchListViewModel: MovieSearchListViewModelProtocol {
     // MARK: Properties
     var movies: [Movie]
     var delegate: MovieSearchListDelegate?
-    
+
     var networkManager: NetworkManagerProtocol? = NetworkManager()
-    
+
     // MARK: Init
     init(movies: [Movie] = [],
          delegate: MovieSearchListDelegate? = nil,
@@ -36,7 +36,7 @@ class MovieSearchListViewModel: MovieSearchListViewModelProtocol {
         self.delegate = delegate
         self.networkManager = networkManager
     }
-    
+
     // MARK: Methods
     // Fetch all movies containing the text
     func fetchMovies(with title: String) {
@@ -56,16 +56,16 @@ class MovieSearchListViewModel: MovieSearchListViewModelProtocol {
             }
         })
     }
-    
+
     func updateTableViewWith(_ movies: [Movie]) {
         self.movies = movies
-        
+
         // Update views in main thread
         DispatchQueue.main.async {
             self.delegate?.updateMovieList()
         }
     }
-    
+
     func updateViewWithError(_ error: Error) {
         // Update views in main thread
         DispatchQueue.main.async {
@@ -78,7 +78,7 @@ class MovieSearchListViewModel: MovieSearchListViewModelProtocol {
                                       description: error.description)
         }
     }
-    
+
     // MARK: Navigation
     func navigateToMovieDetail(with movie: Movie, navigation: UINavigationController) {
         let viewModel = MovieDetailViewModel(movie: movie)

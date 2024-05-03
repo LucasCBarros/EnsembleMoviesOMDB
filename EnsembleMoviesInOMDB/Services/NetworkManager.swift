@@ -18,14 +18,14 @@ class NetworkManager: NetworkManagerProtocol {
     // MARK: Properties
     var session: URLSession
     var decoder: JSONDecoder
-    
+
     // MARK: init
     init(session: URLSession = URLSession.shared,
          decoder: JSONDecoder = JSONDecoder()) {
         self.session = session
         self.decoder = decoder
     }
-    
+
     // MARK: FetchMovies
     /// Fetches a Search object containining movies from endpoint
     ///
@@ -37,14 +37,14 @@ class NetworkManager: NetworkManagerProtocol {
     func fetchMovies(withTitle title: String, completion: @escaping (Result<Search, FetchError>) -> Void) {
         guard let url = URL(string: Constants.endPoint+"&s=\(title)") else { return }
 
-        session.dataTask(with: url) { data, response, error in
+        session.dataTask(with: url) { data, _, error in
             if error != nil {
                 completion(.failure(FetchError.invalidResponse))
                 return }
             guard let data = data, !data.isEmpty else {
                 completion(.failure(FetchError.invalidData))
                 return }
-            
+
             do {
                 let search = try JSONDecoder().decode(Search.self, from: data)
                 completion(.success(search))
@@ -58,7 +58,7 @@ class NetworkManager: NetworkManagerProtocol {
             }
         }.resume()
     }
-    
+
     // MARK: FetchMoviePoster
     /// Fetches Data from endpoint for moviePosterImage
     ///
@@ -70,14 +70,14 @@ class NetworkManager: NetworkManagerProtocol {
     func fetchMoviePoster(imageURL: String, completion: @escaping (Result<Data, FetchError>) -> Void) {
         guard let url = URL(string: imageURL) else { return }
 
-        session.dataTask(with: url) { data, response, error in
+        session.dataTask(with: url) { data, _, error in
             if error != nil {
                 completion(.failure(FetchError.invalidResponse))
                 return }
             guard let data = data, !data.isEmpty else {
                 completion(.failure(FetchError.invalidData))
                 return }
-            
+
             completion(.success(data))
         }.resume()
     }

@@ -17,7 +17,7 @@ protocol MovieDetailViewModelProtocol {
     var movie: Movie? { get set }
     var moviePoster: UIImage? { get set }
     var delegate: MovieDetailViewControllerDelegate? { get set }
-    
+
     func fetchMoviePoster()
 }
 
@@ -27,9 +27,9 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
     var movie: Movie?
     var moviePoster: UIImage?
     var delegate: MovieDetailViewControllerDelegate?
-    
+
     var networkManager: NetworkManagerProtocol? = NetworkManager()
-    
+
     // MARK: Init
     init(movie: Movie? = nil,
          moviePoster: UIImage? = nil,
@@ -40,11 +40,11 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
         self.delegate = delegate
         self.networkManager = networkManager
     }
-    
+
     // MARK: Methods
     func fetchMoviePoster() {
         guard let posterURL = movie?.poster else { return }
-        
+
         networkManager?.fetchMoviePoster(imageURL: posterURL, completion: { response in
             switch response {
             case .success(let imageData):
@@ -54,14 +54,14 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
             }
         })
     }
-    
+
     func updateViewWithImage(_ imageData: Data) {
         // Update views in main thread
         DispatchQueue.main.async {
             self.delegate?.updateImageView(with: imageData)
         }
     }
-    
+
     func updateViewWithError(_ error: FetchError) {
         // Update views in main thread
         DispatchQueue.main.async {

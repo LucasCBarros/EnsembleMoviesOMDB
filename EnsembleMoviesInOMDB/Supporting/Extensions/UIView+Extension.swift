@@ -10,7 +10,7 @@ import UIKit
 extension UIView {
 
     // Add animation to slide views
-    func hideSlideY(y: CGFloat, shouldHide: Bool) {
+    func hideSlideY(yAxis: CGFloat, shouldHide: Bool) {
 
         let xPosition = self.frame.origin.x
 
@@ -18,7 +18,7 @@ extension UIView {
         let width = self.frame.width
 
         UIView.animate(withDuration: 1.0, animations: {
-            self.frame = CGRect(x: xPosition, y: y, width: width, height: height)
+            self.frame = CGRect(x: xPosition, y: yAxis, width: width, height: height)
             self.layoutIfNeeded()
         })
         // Hide view not be accessible via voice-over

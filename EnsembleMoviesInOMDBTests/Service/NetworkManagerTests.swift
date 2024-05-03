@@ -14,28 +14,28 @@ final class NetworkManagerTests: XCTestCase {
         configuration.protocolClasses = [MockURLprotocol.self]
         return URLSession(configuration: configuration)
     }()
-    
+
     lazy var networkManager: NetworkManager = {
         NetworkManager(session: session)
     }()
-    
+
     // MARK: - Test FetchMovies()
     // MARK: Success
     func testFetchMoviesSuccessful() {
         let url = Constants.endPoint+"&s=bat"
         guard let mockData = DataMockFactory.getMockFromJson(from: "Search") else { return }
-        
+
         MockURLprotocol.requestHandler = { request in
             XCTAssertEqual(request.url?.absoluteString, url)
-            
+    
             let response = HTTPURLResponse(url: request.url!,
                                            statusCode: 200,
                                            httpVersion: nil,
                                            headerFields: nil)!
-            
+
             return (response, mockData, nil)
         }
-        
+
         networkManager.fetchMovies(withTitle: "bat", completion: { response in
             switch response {
             case .success(let search):
@@ -46,23 +46,23 @@ final class NetworkManagerTests: XCTestCase {
             }
         })
     }
-    
+
     // MARK: Failure - Invalid JSON
     func testFetchSearchInvalidJson() {
         let url = Constants.endPoint+"&s=bat"
         guard let mockInvalidJson = DataMockFactory.getMockFromJson(from: "Movie") else { return }
-        
+
         MockURLprotocol.requestHandler = { request in
             XCTAssertEqual(request.url?.absoluteString, url)
-            
+
             let response = HTTPURLResponse(url: request.url!,
                                            statusCode: 200,
                                            httpVersion: nil,
                                            headerFields: nil)!
-            
+
             return (response, mockInvalidJson, nil)
         }
-        
+
         networkManager.fetchMovies(withTitle: "bat", completion: { response in
             switch response {
             case .success(let search):
@@ -73,7 +73,7 @@ final class NetworkManagerTests: XCTestCase {
             }
         })
     }
-    
+
     // MARK: Failure - Invalid Response
     func testFetchSearchInvalidResponse() {
         MockURLprotocol.requestHandler = { request in
@@ -81,10 +81,10 @@ final class NetworkManagerTests: XCTestCase {
                                            statusCode: 200,
                                            httpVersion: nil,
                                            headerFields: nil)!
-            
+
             return (response, nil, FetchError.invalidResponse)
         }
-        
+
         networkManager.fetchMovies(withTitle: "bat", completion: { response in
             switch response {
             case .success(let imageData):
@@ -95,7 +95,7 @@ final class NetworkManagerTests: XCTestCase {
             }
         })
     }
-    
+
     // MARK: Failure - Invalid Data
     func testFetchMoviesInvalidData() {
         MockURLprotocol.requestHandler = { request in
@@ -105,7 +105,7 @@ final class NetworkManagerTests: XCTestCase {
                                            headerFields: nil)!
             return (response, nil, nil)
         }
-        
+
         networkManager.fetchMovies(withTitle: "bat", completion: { response in
             switch response {
             case .success(let imageData):
@@ -116,12 +116,12 @@ final class NetworkManagerTests: XCTestCase {
             }
         })
     }
-    
+
     // MARK: - Test FetchMoviePoster()
     // MARK: Success
     func testFetchMoviePosterSuccessful() {
         let mockData = DataMockFactory.buildImageDataMock()
-        
+
         MockURLprotocol.requestHandler = { request in
             let response = HTTPURLResponse(url: request.url!,
                                            statusCode: 200,
@@ -129,8 +129,9 @@ final class NetworkManagerTests: XCTestCase {
                                            headerFields: nil)!
             return (response, mockData, nil)
         }
-        
-        networkManager.fetchMoviePoster(imageURL: "http://img.omdbapi.com/?apikey=36d78389&i=tt0096895", completion: { response in
+
+        networkManager.fetchMoviePoster(imageURL: "http://img.omdbapi.com/?apikey=36d78389&i=tt0096895",
+                                        completion: { response in
             switch response {
             case .success(let imageData):
                 XCTAssertNotNil(imageData)
@@ -140,7 +141,7 @@ final class NetworkManagerTests: XCTestCase {
             }
         })
     }
-    
+
     // MARK: Failure - Invalid Data
     func testFetchMoviePosterInvalidData() {
         MockURLprotocol.requestHandler = { request in
@@ -150,8 +151,9 @@ final class NetworkManagerTests: XCTestCase {
                                            headerFields: nil)!
             return (response, nil, nil)
         }
-        
-        networkManager.fetchMoviePoster(imageURL: "http://img.omdbapi.com/?apikey=36d78389&i=tt0096895", completion: { response in
+
+        networkManager.fetchMoviePoster(imageURL: "http://img.omdbapi.com/?apikey=36d78389&i=tt0096895",
+                                        completion: { response in
             switch response {
             case .success(let imageData):
                 XCTAssertNil(imageData, "Should be nil")
@@ -161,7 +163,7 @@ final class NetworkManagerTests: XCTestCase {
             }
         })
     }
-    
+
     // MARK: Failure - Invalid Response
     func testFetchMoviePosterInvalidResponse() {
         MockURLprotocol.requestHandler = { request in
@@ -171,8 +173,9 @@ final class NetworkManagerTests: XCTestCase {
                                            headerFields: nil)!
             return (response, nil, FetchError.invalidResponse)
         }
-        
-        networkManager.fetchMoviePoster(imageURL: "http://img.omdbapi.com/?apikey=36d78389&i=tt0096895", completion: { response in
+
+        networkManager.fetchMoviePoster(imageURL: "http://img.omdbapi.com/?apikey=36d78389&i=tt0096895",
+                                        completion: { response in
             switch response {
             case .success(let imageData):
                 XCTAssertNil(imageData, "Should be nil")

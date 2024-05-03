@@ -10,11 +10,11 @@ import XCTest
 
 class MockURLprotocol: URLProtocol {
     override class func canInit(with request: URLRequest) -> Bool { return true }
-    
+
     override class func canonicalRequest(for request: URLRequest) -> URLRequest { return request }
-    
+    // swiftlint:disable large_tuple
     static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data?, FetchError?))?
-    
+    // swiftlint:enable large_tuple
     override func stopLoading() { }
     override func startLoading() {
         // Override the handler to give mocked response
@@ -22,10 +22,10 @@ class MockURLprotocol: URLProtocol {
             XCTFail("No request handler provided")
             return
         }
-        
+
         do {
             let (response, data, error) = try handler(request)
-            
+
             client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
             // Can't send nil data, so sends empty instead
             client?.urlProtocol(self, didLoad: data ?? Data())
