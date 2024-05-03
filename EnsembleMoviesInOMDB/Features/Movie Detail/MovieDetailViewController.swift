@@ -90,4 +90,10 @@ extension MovieDetailViewController: ViewCodable {
         guard let title = viewModel?.movie?.title else { return }
         movieTitleLabel.text = title
     }
+    
+    func addAccessibility() {
+        movieTitleLabel.accessibilityLabel = "movieTitleLabel"
+        movieReleasedDateLabel.accessibilityLabel = "movieReleasedDateLabel"
+        moviePosterView.accessibilityLabel = "moviePosterView"
+    }
 }

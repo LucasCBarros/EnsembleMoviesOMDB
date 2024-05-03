@@ -8,27 +8,17 @@
 import XCTest
 
 final class MovieSearchListViewControllerUITests: XCTestCase {
-
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
-        continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
-    }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
     
+    // MARK: Hide & show SearchBar
     func testHideShowSearchBar() {
         let app = XCUIApplication()
         app.launch()
         
+        // Test navigation for Movies List
         let moviesListNavigationBar = app.navigationBars["Movies list"]
         XCTAssertTrue(moviesListNavigationBar.exists)
         
+        // Test if SearchBar items are there
         let searchTextField = app.textFields["Search movie by title"]
         XCTAssertTrue(searchTextField.exists)
         XCTAssertTrue(searchTextField.isHittable)
@@ -36,6 +26,7 @@ final class MovieSearchListViewControllerUITests: XCTestCase {
         XCTAssertTrue(startSearchButton.exists)
         XCTAssertTrue(startSearchButton.isHittable)
         
+        // Apply animation
         let hideSearchButton = moviesListNavigationBar.buttons["Hide search"]
         XCTAssertTrue(hideSearchButton.exists)
         
@@ -55,13 +46,23 @@ final class MovieSearchListViewControllerUITests: XCTestCase {
         searchTextField.typeText("Test successful!")
     }
 
-    func testToggleTableViewCellType() throws {
+    // MARK: Toggle between TableView Cell types
+    func testToggleTableViewCellType() {
         let app = XCUIApplication()
         app.launch()
         
+        // Test navigation for Movies List
         let moviesListNavigationBar = app.navigationBars["Movies list"]
         XCTAssertTrue(moviesListNavigationBar.exists)
         
+        // Write & search in SearchBar
+        let searchTextField = app.textFields["Search movie by title"]
+        searchTextField.tap()
+        searchTextField.typeText("batman")
+        let startSearchButton = app.staticTexts["Search"]
+        startSearchButton.tap()
+        
+        // Test both cell types
         let toggleCustomTableViewCellButton = moviesListNavigationBar.buttons["Custom cell"]
         XCTAssertTrue(toggleCustomTableViewCellButton.exists)
         toggleCustomTableViewCellButton.tap()
@@ -69,5 +70,27 @@ final class MovieSearchListViewControllerUITests: XCTestCase {
         let toggleGenericTableViewCellButton = moviesListNavigationBar.buttons["Generic cell"]
         XCTAssertTrue(toggleGenericTableViewCellButton.exists)
         toggleGenericTableViewCellButton.tap()
+    }
+    
+    // MARK: Open tableViewCell
+    func testOpenMovieTableViewCell() {
+        let app = XCUIApplication()
+        app.launch()
+        
+        // Test navigation for Movies List
+        let moviesListNavigationBar = app.navigationBars["Movies list"]
+        XCTAssertTrue(moviesListNavigationBar.exists)
+        
+        // Write & search in SearchBar to populate tableView
+        let searchTextField = app.textFields["Search movie by title"]
+        searchTextField.tap()
+        searchTextField.typeText("batman")
+        let startSearchButton = app.staticTexts["Search"]
+        startSearchButton.tap()
+        
+        // Open first movie
+        let tableView = app.tables["movieTableView"]
+        let cell = tableView.cells["MovieSearchTableViewCell0"]
+        cell.tap()
     }
 }

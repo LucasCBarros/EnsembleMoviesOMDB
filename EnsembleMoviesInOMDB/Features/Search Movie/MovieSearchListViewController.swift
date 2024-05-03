@@ -63,6 +63,7 @@ extension MovieSearchListViewController: UITableViewDelegate, UITableViewDataSou
             }
             guard let movies = viewModel?.movies[indexPath.row] else { return UITableViewCell() }
             cell.configure(with: movies)
+            cell.accessibilityLabel = "MovieSearchTableViewCell\(indexPath.row)"
             return cell
         } else {
             let cell = UITableViewCell()
@@ -113,6 +114,10 @@ extension MovieSearchListViewController: ViewCodable {
         additionalTableViewConfig()
         additionalNavigationBarConfig()
         self.view.backgroundColor = .white
+    }
+    
+    func addAccessibility() {
+        movieTableView.accessibilityLabel = "movieTableView"
     }
 }
 
