@@ -15,7 +15,6 @@ protocol NetworkManagerProtocol {
 
 // MARK: - API calls
 class NetworkManager: NetworkManagerProtocol {
-    // MARK: - Manager Config
     // MARK: Properties
     var session: URLSession
     var decoder: JSONDecoder
@@ -27,8 +26,14 @@ class NetworkManager: NetworkManagerProtocol {
         self.decoder = decoder
     }
     
-    // MARK: - API Calls
-    // MARK: FetchMovies with Title string
+    // MARK: FetchMovies
+    /// Fetches a Search object containining movies from endpoint
+    ///
+    /// - Parameters:
+    ///     - Title: String contained in the desired movie title
+    ///     - Completion: Method to work with server response
+    ///
+    /// - Returns: A result containing either an Error or Search object
     func fetchMovies(withTitle title: String, completion: @escaping (Result<Search, FetchError>) -> Void) {
         guard let url = URL(string: Constants.endPoint+"&s=\(title)") else { return }
 
@@ -54,7 +59,14 @@ class NetworkManager: NetworkManagerProtocol {
         }.resume()
     }
     
-    // MARK: FetchMoviePoster with ImageURL string
+    // MARK: FetchMoviePoster
+    /// Fetches Data from endpoint for moviePosterImage
+    ///
+    /// - Parameters:
+    ///     - imageURL: String contained url to endpoint
+    ///     - Completion: Method to work with server response
+    ///
+    /// - Returns: A result containing either an Error or Data without Json decoding
     func fetchMoviePoster(imageURL: String, completion: @escaping (Result<Data, FetchError>) -> Void) {
         guard let url = URL(string: imageURL) else { return }
 
@@ -70,48 +82,3 @@ class NetworkManager: NetworkManagerProtocol {
         }.resume()
     }
 }
-
-// Extra calls
-//extension NetworkManager {
-//    // Fetch method 2 for specific movie
-//    func getUser() async throws -> Movie {
-//        guard let url = URL(string: Constants.endPoint) else { throw FetchError.invalidURL }
-//        
-//        // Here we apply the await
-//        let (data, response) = try await URLSession.shared.data(from: url)
-//        
-//        // Response not nil and status 200 is Successful
-//        guard let response = response as? HTTPURLResponse,
-//              response.statusCode == 200 else {
-//            throw FetchError.invalidResponse
-//        }
-//        
-//        do {
-//            let movie = try JSONDecoder().decode(Movie.self, from: data)
-//            return movie
-//        } catch {
-//            do {
-//                let apiError = try JSONDecoder().decode(APIError.self, from: data)
-//                throw FetchError.apiError(apiError)
-//            } catch {
-//                throw FetchError.invalidJsonParse
-//            }
-//        }
-//    }
-//        
-//        let task = Task {
-//            do {
-//                movie = try await NetworkManager.shared.getUser()
-//                print(movie?.title)
-//            } catch FetchError.invalidURL {
-//                print("Invalid URL")
-//            } catch FetchError.invalidResponse {
-//                print("Invalid Response")
-//            } catch FetchError.invalidData {
-//                print("Invalid data")
-//            } catch {
-//                print("Unexpected Error")
-//            }
-//        }
-//    }
-//}
