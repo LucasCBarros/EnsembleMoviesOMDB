@@ -33,6 +33,7 @@ The projects main features are the Movie Search List and the Movie Details:
 
 - In the main feature you can also toggle between simple and detailed list cell
 - The search can also be hidden to optimize the list area
+- You can also toggle between dark and light mode inside the Movie Detail screen
 
 ![Screen showing error handling](img/Github_Features02.png)
 
@@ -58,7 +59,7 @@ Here is the wireframe for the entire project:
 - Project has SwiftLint to keep code standards
 - Server request visa URLSessions
 - Project uses both DispatchQueue and Async/Await
-- 
+- Features Dark/Light mode toggle in Movie Detail screen
 - You can find all changes made in the CHANGELOG.md
 
 ### Future Improvements: 
