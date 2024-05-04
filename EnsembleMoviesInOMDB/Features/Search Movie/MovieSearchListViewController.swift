@@ -122,7 +122,7 @@ extension MovieSearchListViewController: ViewCodable {
         additionalSearchBarConfig()
         additionalTableViewConfig()
         additionalNavigationBarConfig()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .systemBackground
     }
 
     func addAccessibility() {
@@ -148,19 +148,18 @@ extension MovieSearchListViewController {
 
     func additionalSearchBarConfig() {
             searchTextField.placeholder = "Search movie by title"
-            searchTextField.textColor = .blue
             searchTextField.autocapitalizationType = .none
             searchTextField.leftViewMode = .always
             searchTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
-            searchTextField.backgroundColor = .white
-            searchTextField.textColor = .black
+            searchTextField.backgroundColor = .systemBackground
+            searchTextField.textColor = .label
             searchTextField.layer.cornerRadius = 15
             searchTextField.layer.borderWidth = 1
             searchTextField.layer.borderColor = UIColor.gray.cgColor
 
             searchButton.setTitle("Search", for: .normal)
             searchButton.setTitleColor(.white, for: .normal)
-            searchButton.backgroundColor = .systemBlue
+        searchButton.backgroundColor = .systemBlue
             searchButton.layer.cornerRadius = 5
             searchButton.addTarget(self, action: #selector(tapSearchButton), for: .touchUpInside)
     }
@@ -190,12 +189,12 @@ extension MovieSearchListViewController {
             .topToSuperview()
             .bottomToTop(of: searchTextField)
             .widthToSuperview()
-            .backgroundColor = .white
+            .backgroundColor = .systemBackground
     }
 
     func additionalNavigationBarConfig() {
         self.title = "Movies list"
-        self.navigationController?.navigationBar.backgroundColor = .white
+        self.navigationController?.navigationBar.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Hide search",
                                                            style: .plain,
                                                            target: self,

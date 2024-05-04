@@ -16,6 +16,7 @@ class MovieDetailViewController: UIViewController {
 
     // MARK: Properties
     var viewModel: MovieDetailViewModelProtocol
+    var isDarkMode: Bool = false
 
     // MARK: Life Cycle
     override func viewDidLoad() {
@@ -35,6 +36,11 @@ class MovieDetailViewController: UIViewController {
     }
 
     // MARK: Actions
+    @objc func tapToggleDarkModeFeatureButton() {
+        self.navigationController?.overrideUserInterfaceStyle = isDarkMode ? .light : .dark
+        navigationItem.rightBarButtonItem?.title = isDarkMode ? "Dark Mode" : "Light Mode"
+        isDarkMode.toggle()
+    }
 }
 
 // MARK: - Delegate Methods
@@ -80,7 +86,6 @@ extension MovieDetailViewController: ViewCodable {
 
     // MARK: Configurations
     func additionalConfig() {
-        moviePosterView.backgroundColor = .blue
         viewModel.fetchMoviePoster()
 
         movieTitleLabel.numberOfLines = 0
@@ -91,13 +96,18 @@ extension MovieDetailViewController: ViewCodable {
         movieReleasedDateLabel.textAlignment = .center
 
         self.title = "Movie Details"
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .systemBackground
 
         guard let releaseDate = viewModel.movie?.released else { return }
         movieReleasedDateLabel.text = "Released in: \(releaseDate)"
 
         guard let title = viewModel.movie?.title else { return }
         movieTitleLabel.text = title
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Dark Mode",
+                                                           style: .plain,
+                                                           target: self,
+                                                           action: #selector(tapToggleDarkModeFeatureButton))
     }
 
     func addAccessibility() {
