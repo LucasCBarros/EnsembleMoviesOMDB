@@ -12,12 +12,16 @@ class MovieSearchListTvViewcontroller: UIViewController {
     
     // MARK: Views
     var movieListContainerView = UIView()
+    var searchHistoryLabel = UITextField()
     var searchTextField = UITextField()
-    var searchButton = UIButton()
     var searchHistoryTableView = UITableView()
     
-    var movieDetailContainerView = UIView()
+    var movieSelectionContainerView = UIView()
     var moviePosterImage = UIImageView()
+    
+    var movieDetailsContainerView = UIView()
+    var movieDetailsContainerGradientBackground = GradientView()
+    var movieDetailsContainerBackground = UIView()
     var movieTitle = UILabel()
     var movieReleaseDate = UILabel()
 
@@ -32,107 +36,137 @@ class MovieSearchListTvViewcontroller: UIViewController {
         self.view.backgroundColor = .systemOrange
     }
     // MARK: Actions
-    @objc func tapSearchButton() {
-        guard let searchText = searchTextField.text else { return }
-        viewModel.fetchMovies(with: searchText)
-    }
+//    @objc func tapSearchButton() {
+//        guard let searchText = searchTextField.text else { return }
+//        viewModel.fetchMovies(with: searchText)
+//    }
 }
 
 // MARK: Setup UI
 extension MovieSearchListTvViewcontroller: ViewCodable {
     func addHierarchy() {
         self.view.addSubviews([movieListContainerView,
-                              movieDetailContainerView])
+                              movieSelectionContainerView])
         
-        movieListContainerView.addSubviews([searchTextField,
-                                              searchButton,
+        movieListContainerView.addSubviews([searchHistoryLabel,
+            searchTextField,
                                              searchHistoryTableView])
         
-        movieDetailContainerView.addSubviews([movieTitle,
+        movieSelectionContainerView.addSubviews([
                                               moviePosterImage,
-                                             movieReleaseDate])
+                                                 movieDetailsContainerView,
+                                             ])
+        
+        movieDetailsContainerView.addSubviews([
+            movieDetailsContainerGradientBackground,
+            movieDetailsContainerBackground,
+            movieTitle,
+                                              movieReleaseDate])
     }
-    
+
     func addConstraints() {
         // Left side
         movieListContainerView
             .topToSuperview()
             .leadingToSuperview()
             .bottomToSuperview()
-            .widthTo(self.view.frame.width/3)
+            .widthTo(self.view.frame.width/5)
+
+        searchHistoryLabel
+            .topToSuperview(25)
+            .heightTo(30)
+            .widthToSuperview(-50)
+            .centerHorizontalToSuperView()
+            .backgroundColor = .magenta
         
         searchTextField
-            .topToSuperview(25)
+            .topToBottom(of: searchHistoryLabel)
             .leadingToSuperview(25)
-            .heightTo(100)
-            .widthTo(self.view.frame.width/5)
+            .heightTo(50)
+            .widthToSuperview(-50)
+//            .widthTo(self.view.frame.width/10)
             .backgroundColor = .systemGreen
-                                              
-        searchButton
-            .topToTop(of: searchTextField)
-            .leadingToTrailing(of: searchTextField, margin: 25)
-            .heightOf(searchTextField)
-            .trailingToSuperview(25)
-            .backgroundColor = .magenta
-                                             
+
         searchHistoryTableView
             .topToBottom(of: searchTextField, margin: 25)
             .widthToSuperview(-50)
             .bottomToSuperview()
             .centerHorizontalToSuperView()
             .backgroundColor = .systemYellow
-        
+
         // Right side
-        movieDetailContainerView
+        movieSelectionContainerView
             .topToSuperview()
             .trailingToSuperview()
             .bottomToSuperview()
             .leadingToTrailing(of: movieListContainerView)
+            .backgroundColor = .cyan
+        
+        moviePosterImage
+            .widthToSuperview()
+            .topToSuperview()
+            .centerHorizontalToSuperView()
+            .heightTo((self.view.frame.height/3)*2)
+            .backgroundColor = .systemPurple
+        
+        movieDetailsContainerView
+            .widthTo(self.view.frame.width/3)
+            .leadingToSuperview()
+            .topToSuperview()
+            .heightOf(moviePosterImage)
+        
+        movieDetailsContainerGradientBackground
+            .widthTo(self.view.frame.width/3)
+            .trailingToSuperview()
+            .heightToSuperview()
+        
+//        movieDetailsContainerBackground
+//            .widthTo((self.view.frame.width/9)*2)
+//            .leadingToSuperview()
+//            .heightToSuperview()
+//            .backgroundColor = .black
+//        movieDetailsContainerBackground.alpha = 0.90
         
         movieTitle
+            .widthTo((self.view.frame.width/9)*2)
+            .leadingToSuperview()
             .topToSuperview(self.view.frame.height/5)
-            .widthToSuperview()
             
-        moviePosterImage
-            .widthToSuperview(-400)
-            .topToBottom(of: movieTitle, margin: 30)
-            .centerHorizontalToSuperView()
-            .heightTo(self.view.frame.height/2)
-        
        movieReleaseDate
-            .widthToSuperview()
-            .topToBottom(of: moviePosterImage, margin: 30)
-
+            .widthTo((self.view.frame.width/9)*2)
+            .leadingToSuperview()
+            .topToBottom(of: movieTitle, margin: 30)
     }
-    
+
     func additionalConfig() {
         movieListContainerView.backgroundColor = .systemRed
-        movieDetailContainerView.backgroundColor = .systemBlue
-        
+//        movieDetailsContainerView.backgroundColor = .systemBlue
+
         // Left
+        searchHistoryLabel.text = "Search History"
+        searchHistoryLabel.textAlignment = .center
+        
         searchHistoryTableView.dataSource = self
         searchHistoryTableView.delegate = self
-        
+
         searchTextField.placeholder = "Movie title"
-        searchTextField.layer.cornerRadius = 15
-        
-        searchButton.setTitle("Search", for: .normal)
-        searchButton.addTarget(self, action: #selector(tapSearchButton), for: .touchUpInside)
-        searchButton.layer.cornerRadius = 15
+//        searchTextField.layer.cornerRadius = 50
+        searchTextField.font = .systemFont(ofSize: 30)
         
         // Right
-        movieTitle.font = .systemFont(ofSize: 84, weight: .heavy)
+        movieTitle.font = .systemFont(ofSize: 50, weight: .heavy)
         movieTitle.textAlignment = .center
-        guard let title = viewModel.movie?.title else { return }
-        movieTitle.text = title
+//        guard let title = viewModel.movie?.title else { return }
+        movieTitle.text = "title"
         
         moviePosterImage.image = UIImage(systemName: "star")
-        viewModel.fetchMoviePoster()
-        guard let releaseDate = viewModel.movie?.released else { return }
-        movieReleaseDate.text = "Released in: \(releaseDate)"
+//        viewModel.fetchMoviePoster()
+//        guard let releaseDate = viewModel.movie?.released else { return }
+        movieReleaseDate.text = "Released in 2024" //"Released in: \(releaseDate)"
         
-        movieReleaseDate.font = .systemFont(ofSize: 60, weight: .light)
+        movieReleaseDate.font = .systemFont(ofSize: 50, weight: .light)
         movieReleaseDate.textAlignment = .center
+        movieReleaseDate.numberOfLines = 0
     }
 }
 
@@ -161,114 +195,64 @@ extension MovieSearchListTvViewcontroller: MainMenuViewControllerDelegate {
         self.searchHistoryTableView.reloadData()
     }
 }
-//
-//protocol MainMenuViewControllerDelegate {
-//    func updateImageView(with imageData: Data)
-//    func updateMovieList()
-//    func alertError(title: String, description: String)
-//}
-//
-//protocol MainMenuViewModelProtocol {
-//    var movies: [Movie] { get set }
-//    var movie: Movie? { get set }
-//    var moviePoster: UIImage? { get set }
-//    var delegate: MainMenuViewControllerDelegate? { get set }
-//
-//    func fetchMoviePoster()
-//    func fetchMovies(with title: String)
-//}
-//
-//class MainMenuViewModel: MainMenuViewModelProtocol {
-//    // MARK: Properties
-//    var movies: [Movie]
-//    var movie: Movie?
-//    var moviePoster: UIImage?
-//
-//    var delegate: MainMenuViewControllerDelegate?
-//    var networkManager: NetworkManagerProtocol? = NetworkManager()
-//
-//    // MARK: Init
-//    init(movies: [Movie] = [],
-//         movie: Movie? = nil,
-//         moviePoster: UIImage? = nil,
-//         delegate: MainMenuViewControllerDelegate? = nil,
-//         networkManager: NetworkManagerProtocol? = NetworkManager()) {
-//        self.movies = movies
-//        self.movie = movie
-//        self.moviePoster = moviePoster
-//        self.delegate = delegate
-//        self.networkManager = networkManager
-//    }
-//
-//    // MARK: Methods
-//    func fetchMoviePoster() {
-//        let posterURL = "https://img.omdbapi.com/?apikey=36d78389&i=tt0096895"
-////        guard let posterURL = movie?.poster else { return }
-//
-//        networkManager?.fetchMoviePoster(imageURL: posterURL, completion: { response in
-//            switch response {
-//            case .success(let imageData):
-//                self.updateViewWithImage(imageData)
-//            case .failure(let error):
-//                self.updateViewWithError(error)
-//            }
-//        })
-//    }
-//
-//    func updateViewWithImage(_ imageData: Data) {
-//        // Update views in main thread
-//        DispatchQueue.main.async {
-//            self.delegate?.updateImageView(with: imageData)
-//        }
-//    }
-//
-//    func updateViewWithError(_ error: FetchError) {
-//        // Update views in main thread
-//        DispatchQueue.main.async {
-//            self.delegate?.alertError(title: "Ops! Unfortunate error:",
-//                                      description: error.description)
-//        }
-//    }
-//
-//    // MARK: Methods
-//    // Fetch all movies containing the text
-//    func fetchMovies(with title: String) {
-//        if title.isEmpty {
-//            delegate?.alertError(title: "Invalid empty search",
-//                                 description: "Can't search an blank title!")
-//        } else if title.count < 3 {
-//            delegate?.alertError(title: "Invalid lacking information",
-//                                 description: "Need more than 3 characters from the title!")
-//        }
-//        networkManager?.fetchMovies(withTitle: title, completion: { response in
-//            switch response {
-//            case .success(let search):
-//                self.updateTableViewWith(search.movies)
-//            case .failure(let error):
-//                self.updateViewWithError(error)
-//            }
-//        })
-//    }
-//
-//    func updateTableViewWith(_ movies: [Movie]) {
-//        self.movies = movies
-//
-//        // Update views in main thread
-//        DispatchQueue.main.async {
-//            self.delegate?.updateMovieList()
-//        }
-//    }
-//
-//    func updateViewWithError(_ error: Error) {
-//        // Update views in main thread
-//        DispatchQueue.main.async {
-//            guard let error = error as? FetchError else {
-//                self.delegate?.alertError(title: "Ops! Unfortunate error:",
-//                                          description: error.localizedDescription)
-//                return
-//            }
-//            self.delegate?.alertError(title: "Ops! Unfortunate error:",
-//                                      description: error.description)
-//        }
-//    }
-//}
+
+extension UIView {
+    func setGradientBackground() {
+        let colorTop =  UIColor(red: 255.0/255.0, green: 149.0/255.0, blue: 0.0/255.0, alpha: 1.0).cgColor
+        let colorBottom = UIColor.clear.cgColor//UIColor(red: 255.0/255.0, green: 94.0/255.0, blue: 58.0/255.0, alpha: 1.0).cgColor
+                    
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [colorTop, colorBottom]
+        gradientLayer.locations = [0.0, 1.0]
+        gradientLayer.frame = self.bounds
+                
+        self.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    func addGradient() {
+
+        let gradient:CAGradientLayer = CAGradientLayer()
+        gradient.frame.size = self.frame.size
+        gradient.colors = [UIColor.red.cgColor,
+                           UIColor.blue.withAlphaComponent(0).cgColor] //Or any colors
+        self.layer.addSublayer(gradient)
+
+    }
+    
+    func addGradient2() {
+        self.layoutIfNeeded()
+        let gradient = CAGradientLayer()
+
+        gradient.frame = self.bounds
+        gradient.colors = [UIColor.white.cgColor, UIColor.black.cgColor]
+
+        self.layer.insertSublayer(gradient, at: 0)
+    }
+}
+
+class GradientView: UIView {
+    override open class var layerClass: AnyClass {
+       return CAGradientLayer.classForCoder()
+    }
+
+    init() {
+        super.init(frame: CGRect.zero)
+        let gradientLayer = layer as! CAGradientLayer
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gradientLayer.colors = [UIColor.black.cgColor,
+                                UIColor.clear.cgColor]
+//        self.alpha = 0.9
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        let gradientLayer = layer as! CAGradientLayer
+        gradientLayer.startPoint = CGPoint(x: 1.0, y: 1.0)
+        gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
+        gradientLayer.colors = [UIColor.black.cgColor,
+                                UIColor.darkGray.cgColor,
+                                UIColor.gray.cgColor,
+                                UIColor.clear.cgColor]
+    }
+}

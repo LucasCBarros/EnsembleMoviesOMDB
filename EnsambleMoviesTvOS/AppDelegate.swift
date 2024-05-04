@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         movieListViewController.tabBarItem.title = "Movies"
         
         let movieDetailsViewController = FavoriteMoviesTvViewController()
-        movieDetailsViewController.tabBarItem.title = "Details"
+        movieDetailsViewController.tabBarItem.title = "Favorites"
         
         let tabbarController = UITabBarController()
         tabbarController.viewControllers = [movieListViewController, movieDetailsViewController]
