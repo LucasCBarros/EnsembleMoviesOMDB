@@ -15,14 +15,25 @@ class MovieDetailViewController: UIViewController {
     let moviePosterView = UIImageView()
 
     // MARK: Properties
-    var viewModel: MovieDetailViewModelProtocol? = MovieDetailViewModel()
+    var viewModel: MovieDetailViewModelProtocol
 
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel?.delegate = self
+        viewModel.delegate = self
         setupUI()
     }
+
+    init(viewModel: MovieDetailViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel.delegate = self
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: Actions
 }
 
@@ -70,7 +81,7 @@ extension MovieDetailViewController: ViewCodable {
     // MARK: Configurations
     func additionalConfig() {
         moviePosterView.backgroundColor = .blue
-        viewModel?.fetchMoviePoster()
+        viewModel.fetchMoviePoster()
 
         movieTitleLabel.numberOfLines = 0
         movieTitleLabel.textAlignment = .center
@@ -82,10 +93,10 @@ extension MovieDetailViewController: ViewCodable {
         self.title = "Movie Details"
         self.view.backgroundColor = .white
 
-        guard let releaseDate = viewModel?.movie?.released else { return }
+        guard let releaseDate = viewModel.movie?.released else { return }
         movieReleasedDateLabel.text = "Released in: \(releaseDate)"
 
-        guard let title = viewModel?.movie?.title else { return }
+        guard let title = viewModel.movie?.title else { return }
         movieTitleLabel.text = title
     }
 

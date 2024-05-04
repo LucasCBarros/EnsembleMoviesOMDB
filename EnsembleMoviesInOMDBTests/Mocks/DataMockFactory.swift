@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 class DataMockFactory {
+    // MARK: Fetch data from mocked JSON files
     static func getMockFromJson(from fileName: String) -> Data? {
         do {
             guard let fileUrl = Bundle.main.url(forResource: fileName, withExtension: "json") else { return nil }
@@ -21,6 +22,7 @@ class DataMockFactory {
         }
     }
 
+    // MARK: Build mock Movie object
     static func buildMovieMock() -> Movie {
         return Movie(title: "Title",
                      released: "1991",
@@ -29,6 +31,7 @@ class DataMockFactory {
                      posterImage: nil)
     }
 
+    // MARK: Build mock Search object with Movie array
     static func buildSearchMoviesMock() -> Search {
         let search = Search(movies: [
             Movie(title: "Movie01",
@@ -50,6 +53,7 @@ class DataMockFactory {
         return search
     }
 
+    // MARK: Build mock Data
     static func buildImageDataMock() -> Data {
         return UIImage(systemName: "star")?.pngData() ?? Data(count: 10)
     }

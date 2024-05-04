@@ -19,7 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
 
         // init programmatic view
-        let viewController = MovieSearchListViewController()
+        let networkManager = NetworkManager()
+        let viewModel = MovieSearchListViewModel(networkManager: networkManager)
+        let viewController = MovieSearchListViewController(viewModel: viewModel)
         let navigationController = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigationController
 
@@ -27,4 +29,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.makeKeyAndVisible()
     }
 }
-

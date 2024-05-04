@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol MovieSearchListDelegate {
+protocol MovieSearchListDelegate: AnyObject {
     func updateMovieList()
     func alertError(title: String, description: String)
 }
@@ -17,21 +17,20 @@ protocol MovieSearchListViewModelProtocol {
     var delegate: MovieSearchListDelegate? { get set }
 
     func fetchMovies(with title: String)
-    func navigateToMovieDetail(with movie: Movie, navigation: UINavigationController)
+    func navigateToMovieDetail(with movie: Movie, navigation: UINavigationController?)
 }
 
 // MARK: Business logic for Movie Search View Controller
 class MovieSearchListViewModel: MovieSearchListViewModelProtocol {
     // MARK: Properties
     var movies: [Movie]
-    var delegate: MovieSearchListDelegate?
-
-    var networkManager: NetworkManagerProtocol? = NetworkManager()
+    weak var delegate: MovieSearchListDelegate?
+    var networkManager: NetworkManagerProtocol
 
     // MARK: Init
     init(movies: [Movie] = [],
          delegate: MovieSearchListDelegate? = nil,
-         networkManager: NetworkManagerProtocol? = NetworkManager()) {
+         networkManager: NetworkManagerProtocol) {
         self.movies = movies
         self.delegate = delegate
         self.networkManager = networkManager
@@ -47,7 +46,7 @@ class MovieSearchListViewModel: MovieSearchListViewModelProtocol {
             delegate?.alertError(title: "Invalid lacking information",
                                  description: "Need more than 3 characters from the title!")
         }
-        networkManager?.fetchMovies(withTitle: title, completion: { response in
+        networkManager.fetchMovies(withTitle: title, completion: { response in
             switch response {
             case .success(let search):
                 self.updateTableViewWith(search.movies)
@@ -80,11 +79,10 @@ class MovieSearchListViewModel: MovieSearchListViewModelProtocol {
     }
 
     // MARK: Navigation
-    func navigateToMovieDetail(with movie: Movie, navigation: UINavigationController) {
-        let viewModel = MovieDetailViewModel(movie: movie)
-        let viewController = MovieDetailViewController()
-        viewController.viewModel = viewModel
+    func navigateToMovieDetail(with movie: Movie, navigation: UINavigationController?) {
+        let viewModel = MovieDetailViewModel(movie: movie, networkManager: networkManager)
+        let viewController = MovieDetailViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .fullScreen
-        navigation.pushViewController(viewController, animated: true)
+        navigation?.pushViewController(viewController, animated: true)
     }
 }

@@ -8,6 +8,7 @@
 import XCTest
 
 final class MovieDetailViewControllerUITests: XCTestCase {
+
     // MARK: Navigate to Movie Details
     func testNavigateToDetail() {
         let app = XCUIApplication()

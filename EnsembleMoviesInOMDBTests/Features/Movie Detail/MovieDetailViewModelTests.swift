@@ -11,7 +11,7 @@ import XCTest
 final class MovieDetailViewModelTests: XCTestCase {
     // MARK: Properties
     var networkManager: NetworkManagerMock?
-    var viewModel: MovieDetailViewModel?
+    var sut_viewModel: MovieDetailViewModel?
     var viewController: MovieDetailViewController?
 
     // MARK: SetUp & TearDown
@@ -19,17 +19,15 @@ final class MovieDetailViewModelTests: XCTestCase {
         networkManager = NetworkManagerMock()
 
         let movie = DataMockFactory.buildMovieMock()
-        viewModel = MovieDetailViewModel(movie: movie,
-                                         delegate: viewController.self,
-                                         networkManager: networkManager)
-
-        viewController?.viewModel = viewModel
-        viewController = MovieDetailViewController()
+        sut_viewModel = MovieDetailViewModel(movie: movie,
+                                         networkManager: networkManager!)
+        viewController = MovieDetailViewController(viewModel: sut_viewModel!)
     }
 
     override func tearDown() {
         networkManager = nil
-        viewModel = nil
+        sut_viewModel = nil
+        viewController = nil
     }
 
     // MARK: Fetch Movie Poster Success
@@ -38,15 +36,15 @@ final class MovieDetailViewModelTests: XCTestCase {
         networkManager?.setReturnError(false)
 
         // WHEN
-        viewModel?.networkManager?.fetchMoviePoster(imageURL: "posterURL", completion: { response in
+        sut_viewModel?.networkManager.fetchMoviePoster(imageURL: "posterURL", completion: { response in
             switch response {
             case .success(let image):
                 // THEN
-                self.viewModel?.updateViewWithImage(image)
+                self.sut_viewModel?.updateViewWithImage(image)
                 XCTAssertNotNil(image, "The expected result should have an image data")
             case .failure(let error):
                 // THEN
-                self.viewModel?.updateViewWithError(error)
+                self.sut_viewModel?.updateViewWithError(error)
                 XCTAssertNil(error, "The expected result should be successful")
             }
         })
@@ -67,7 +65,7 @@ final class MovieDetailViewModelTests: XCTestCase {
             networkManager?.setReturnError(true, with: error)
 
             // WHEN
-            viewModel?.networkManager?.fetchMoviePoster(imageURL: "posterURL", completion: { response in
+            sut_viewModel?.networkManager.fetchMoviePoster(imageURL: "posterURL", completion: { response in
                 switch response {
                 case .success(let image):
                     // THEN
@@ -101,10 +99,10 @@ final class MovieDetailViewModelTests: XCTestCase {
         // GIVEN
         networkManager = NetworkManagerMock(shouldReturnError: true)
 
-        viewModel = MovieDetailViewModel(movie: DataMockFactory.buildMovieMock(),
+        sut_viewModel = MovieDetailViewModel(movie: DataMockFactory.buildMovieMock(),
                                          delegate: viewController.self,
-                                         networkManager: networkManager)
-        viewController?.viewModel = viewModel
+                                         networkManager: networkManager!)
+        viewController = MovieDetailViewController(viewModel: sut_viewModel!)
 
         // WHEN
         UIApplication.shared.windows.first?.rootViewController = viewController
@@ -129,13 +127,12 @@ final class MovieDetailViewModelTests: XCTestCase {
                       "moviePosterView should start without image")
 
         let movie = DataMockFactory.buildMovieMock()
-        viewModel = MovieDetailViewModel(movie: movie,
-                                         delegate: viewController.self,
-                                         networkManager: networkManager)
-        viewController?.viewModel = viewModel
+        sut_viewModel = MovieDetailViewModel(movie: movie,
+                                         networkManager: networkManager!)
+        viewController = MovieDetailViewController(viewModel: sut_viewModel!)
 
         // WHEN
-        viewController?.viewModel?.fetchMoviePoster()
+        viewController?.viewModel.fetchMoviePoster()
 
         // THEN
         let exp = expectation(description: "Test after 1.5 second wait")

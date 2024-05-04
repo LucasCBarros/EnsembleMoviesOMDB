@@ -8,7 +8,7 @@
 import UIKit
 
 // MARK: Movie Detail Delegate
-protocol MovieDetailViewControllerDelegate {
+protocol MovieDetailViewControllerDelegate: AnyObject {
     func updateImageView(with imageData: Data)
     func alertError(title: String, description: String)
 }
@@ -26,15 +26,15 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
     // MARK: Properties
     var movie: Movie?
     var moviePoster: UIImage?
-    var delegate: MovieDetailViewControllerDelegate?
+    weak var delegate: MovieDetailViewControllerDelegate?
 
-    var networkManager: NetworkManagerProtocol? = NetworkManager()
+    var networkManager: NetworkManagerProtocol
 
     // MARK: Init
     init(movie: Movie? = nil,
          moviePoster: UIImage? = nil,
          delegate: MovieDetailViewControllerDelegate? = nil,
-         networkManager: NetworkManagerProtocol? = NetworkManager()) {
+         networkManager: NetworkManagerProtocol) {
         self.movie = movie
         self.moviePoster = moviePoster
         self.delegate = delegate
@@ -45,7 +45,7 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
     func fetchMoviePoster() {
         guard let posterURL = movie?.poster else { return }
 
-        networkManager?.fetchMoviePoster(imageURL: posterURL, completion: { response in
+        networkManager.fetchMoviePoster(imageURL: posterURL, completion: { response in
             switch response {
             case .success(let imageData):
                 self.updateViewWithImage(imageData)

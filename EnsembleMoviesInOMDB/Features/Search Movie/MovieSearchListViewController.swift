@@ -16,21 +16,31 @@ class MovieSearchListViewController: UIViewController {
     let movieTableView = UITableView()
 
     // MARK: Properties
-    var viewModel: MovieSearchListViewModelProtocol? = MovieSearchListViewModel()
+    var viewModel: MovieSearchListViewModelProtocol
     var shouldSearch: Bool = true
     var withCustomCell: Bool = true
 
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel?.delegate = self
+        viewModel.delegate = self
         setupUI()
+    }
+
+    init(viewModel: MovieSearchListViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel.delegate = self
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: Actions
     @objc func tapSearchButton() {
         guard let searchText = searchTextField.text else { return }
-        viewModel?.fetchMovies(with: searchText)
+        viewModel.fetchMovies(with: searchText)
     }
 
     @objc func tapToggleSearchFeatureButton() {
@@ -53,7 +63,7 @@ class MovieSearchListViewController: UIViewController {
 // MARK: - TableView Setup
 extension MovieSearchListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.movies.count ?? 0
+        return viewModel.movies.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,21 +72,19 @@ extension MovieSearchListViewController: UITableViewDelegate, UITableViewDataSou
                                                            for: indexPath) as? MovieSearchTableViewCell else {
                 fatalError("The tableView could not dequeue a MovieSearchTableViewCell in ViewController")
             }
-            guard let movies = viewModel?.movies[indexPath.row] else { return UITableViewCell() }
-            cell.configure(with: movies)
+            cell.configure(with: viewModel.movies[indexPath.row])
             cell.accessibilityLabel = "MovieSearchTableViewCell\(indexPath.row)"
             return cell
         } else {
             let cell = UITableViewCell()
-            cell.textLabel?.text = viewModel?.movies[indexPath.row].title
+            cell.textLabel?.text = viewModel.movies[indexPath.row].title
             return cell
         }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let navigation = self.navigationController,
-              let movies = viewModel?.movies[indexPath.row] else { return }
-        viewModel?.navigateToMovieDetail(with: movies, navigation: navigation)
+        viewModel.navigateToMovieDetail(with: viewModel.movies[indexPath.row],
+                                        navigation: self.navigationController)
     }
 }
 

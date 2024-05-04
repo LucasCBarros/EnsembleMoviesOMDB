@@ -10,50 +10,50 @@ import XCTest
 
 final class MovieDetailViewControllerTests: XCTestCase {
 
-    var viewController: MovieDetailViewController?
+    // MARK: Test config properties
+    var sut_viewController: MovieDetailViewController?
     var viewModel: MovieDetailViewModel?
     var networkManager: NetworkManagerMock?
 
+    // MARK: SetUp & TearDown
     override func setUp() {
-        viewController = MovieDetailViewController()
         networkManager = NetworkManagerMock()
-
         let movie = DataMockFactory.buildMovieMock()
         viewModel = MovieDetailViewModel(movie: movie,
-                                         delegate: viewController.self,
-                                         networkManager: networkManager)
-        viewController?.viewModel = viewModel
+                                         networkManager: networkManager!)
+        sut_viewController = MovieDetailViewController(viewModel: viewModel!)
     }
 
     override func tearDown() {
-        viewController = nil
+        sut_viewController = nil
         viewModel = nil
         networkManager = nil
     }
 
-    // Test Delegate functions
+    // MARK: Update image via delegate
     func testUpdateImageWithData() {
         // GIVEN
         networkManager?.setReturnError(false)
-        XCTAssertNil(viewController?.moviePosterView.image, "Image should be empty at first")
+        XCTAssertNil(sut_viewController?.moviePosterView.image, "Image should be empty at first")
 
         // WHEN
-        viewController?.updateImageView(with: DataMockFactory.buildImageDataMock())
+        sut_viewController?.updateImageView(with: DataMockFactory.buildImageDataMock())
 
         // THEN
-        XCTAssertNotNil(viewController?.moviePosterView.image, "Image should be empty at first")
+        XCTAssertNotNil(sut_viewController?.moviePosterView.image, "Image should be empty at first")
     }
 
+    // MARK: Alert error
     func testAlertError() {
         // GIVEN
         networkManager?.setReturnError(true)
 
-        XCTAssertNil(viewController?.navigationController?.visibleViewController?.isKind(of: UIAlertController.self),
+        XCTAssertNil(sut_viewController?.navigationController?.visibleViewController?.isKind(of: UIAlertController.self),
                      "Image should be empty at first")
 
         // WHEN
-        UIApplication.shared.keyWindow?.rootViewController = viewController
-        viewController?.alertError(title: "Title", description: "Message")
+        UIApplication.shared.keyWindow?.rootViewController = sut_viewController
+        sut_viewController?.alertError(title: "Title", description: "Message")
 
         // THEN
         XCTAssertTrue(UIApplication.shared.keyWindow?.rootViewController?.presentedViewController is UIAlertController)
