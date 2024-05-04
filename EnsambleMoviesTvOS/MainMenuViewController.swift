@@ -189,7 +189,7 @@ protocol MainMenuViewModelProtocol {
     var moviePoster: UIImage? { get set }
     var delegate: MainMenuViewControllerDelegate? { get set }
 
-    func fetchMoviePoster()
+    func fetchMoviePoster(for posterUrl: String)
     func fetchMovies(with title: String)
 }
 
@@ -216,14 +216,29 @@ class MainMenuViewModel: MainMenuViewModelProtocol {
     }
 
     // MARK: Methods
-    func fetchMoviePoster() {
-        let posterURL = "https://img.omdbapi.com/?apikey=36d78389&i=tt0096895"
+    func fetchMoviePoster(for posterURL: String) {
+//        let posterURL = "https://img.omdbapi.com/?apikey=36d78389&i=tt0096895"
 //        guard let posterURL = movie?.poster else { return }
 
         networkManager?.fetchMoviePoster(imageURL: posterURL, completion: { response in
             switch response {
             case .success(let imageData):
                 self.updateViewWithImage(imageData)
+            case .failure(let error):
+                self.updateViewWithError(error)
+            }
+        })
+    }
+    
+    func updateMoviePoster(for posterURL: String, movieIndex: Int) {
+//        let posterURL = "https://img.omdbapi.com/?apikey=36d78389&i=tt0096895"
+//        guard let posterURL = movie?.poster else { return }
+
+        networkManager?.fetchMoviePoster(imageURL: posterURL, completion: { response in
+            switch response {
+            case .success(let imageData):
+                self.movies[movieIndex].posterImage = imageData
+                self.updateTableViewWith(self.movies)
             case .failure(let error):
                 self.updateViewWithError(error)
             }
@@ -259,12 +274,19 @@ class MainMenuViewModel: MainMenuViewModelProtocol {
             switch response {
             case .success(let search):
                 self.updateTableViewWith(search.movies)
+                self.fetchMoviePosters(for: search.movies)
             case .failure(let error):
                 self.updateViewWithError(error)
             }
         })
     }
 
+    func fetchMoviePosters(for movies: [Movie]) {
+        for index in 0..<movies.count {
+            self.updateMoviePoster(for: movies[index].poster, movieIndex: index)
+        }
+    }
+    
     func updateTableViewWith(_ movies: [Movie]) {
         self.movies = movies
 

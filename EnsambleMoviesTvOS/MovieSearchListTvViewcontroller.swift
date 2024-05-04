@@ -10,29 +10,44 @@ import QuickUIKitDevTools
 
 class MovieSearchListTvViewcontroller: UIViewController {
     
-    // MARK: Views
+    // MARK: - Views
+    // MARK: Left movie searh
     var movieListContainerView = UIView()
     var searchHistoryLabel = UITextField()
     var searchTextField = UITextField()
     var searchHistoryTableView = UITableView()
     
+    // MARK: Right selection & Movie details
     var movieSelectionContainerView = UIView()
-    var moviePosterImage = UIImageView()
     
+    // MARK: Top Right Movie details
+    var moviePosterImage = UIImageView()
     var movieDetailsContainerView = UIView()
     var movieDetailsContainerGradientBackground = GradientView()
-    var movieDetailsContainerBackground = UIView()
     var movieTitle = UILabel()
     var movieReleaseDate = UILabel()
-
-    // MARK: Properties
-    let viewModel: MainMenuViewModelProtocol = MainMenuViewModel()
     
-    // MARK: Life Cycle
+    // MARK: Bottom Right Movie collectionView
+//    var movieCollectionView = UICollectionView(frame: CGRect.zero,
+//                                               collectionViewLayout: UICollectionViewLayout.init())
+    private var movieCollectionView: UICollectionView = {
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//        layout.itemSize = CGSize(width: 70, height: 70)
+        layout.scrollDirection = .horizontal
+        return UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+    }()
+
+    // MARK: - Properties
+    var viewModel: MainMenuViewModelProtocol = MainMenuViewModel()
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        
+        viewModel.delegate = self
+//        viewModel.fetchMoviePoster()
+        viewModel.fetchMovies(with: "batman")
         self.view.backgroundColor = .systemOrange
     }
     // MARK: Actions
@@ -55,11 +70,11 @@ extension MovieSearchListTvViewcontroller: ViewCodable {
         movieSelectionContainerView.addSubviews([
                                               moviePosterImage,
                                                  movieDetailsContainerView,
+                                              movieCollectionView,
                                              ])
         
         movieDetailsContainerView.addSubviews([
             movieDetailsContainerGradientBackground,
-            movieDetailsContainerBackground,
             movieTitle,
                                               movieReleaseDate])
     }
@@ -95,6 +110,8 @@ extension MovieSearchListTvViewcontroller: ViewCodable {
             .backgroundColor = .systemYellow
 
         // Right side
+        
+        // Top Right Z=0
         movieSelectionContainerView
             .topToSuperview()
             .trailingToSuperview()
@@ -109,33 +126,33 @@ extension MovieSearchListTvViewcontroller: ViewCodable {
             .heightTo((self.view.frame.height/3)*2)
             .backgroundColor = .systemPurple
         
+        /// Top Right Z=1
         movieDetailsContainerView
-            .widthTo(self.view.frame.width/3)
-            .leadingToSuperview()
+            .widthToSuperview()
             .topToSuperview()
-            .heightOf(moviePosterImage)
+            .bottomToBottom(of: moviePosterImage)
         
         movieDetailsContainerGradientBackground
-            .widthTo(self.view.frame.width/3)
-            .trailingToSuperview()
-            .heightToSuperview()
-        
-//        movieDetailsContainerBackground
-//            .widthTo((self.view.frame.width/9)*2)
-//            .leadingToSuperview()
-//            .heightToSuperview()
-//            .backgroundColor = .black
-//        movieDetailsContainerBackground.alpha = 0.90
+            .widthToSuperview()
+            .centerHorizontalToSuperView()
+            .bottomToSuperview()
+            .heightTo(self.view.frame.height/3)
         
         movieTitle
-            .widthTo((self.view.frame.width/9)*2)
-            .leadingToSuperview()
-            .topToSuperview(self.view.frame.height/5)
+            .widthToSuperview()
+            .bottomToTop(of: movieReleaseDate)
             
        movieReleaseDate
-            .widthTo((self.view.frame.width/9)*2)
-            .leadingToSuperview()
-            .topToBottom(of: movieTitle, margin: 30)
+            .widthToSuperview()
+            .bottomToSuperview(20)
+        
+        // Bottom Right
+        movieCollectionView
+            .widthToSuperview(-100)
+            .centerHorizontalToSuperView()
+            .heightTo(self.view.frame.height/4)
+            .bottomToSuperview(50)
+            .backgroundColor = .red
     }
 
     func additionalConfig() {
@@ -148,6 +165,10 @@ extension MovieSearchListTvViewcontroller: ViewCodable {
         
         searchHistoryTableView.dataSource = self
         searchHistoryTableView.delegate = self
+        
+        movieCollectionView.dataSource = self
+        movieCollectionView.delegate = self
+        movieCollectionView.register(CustomCell.self, forCellWithReuseIdentifier: "cell")
 
         searchTextField.placeholder = "Movie title"
 //        searchTextField.layer.cornerRadius = 50
@@ -164,10 +185,38 @@ extension MovieSearchListTvViewcontroller: ViewCodable {
 //        guard let releaseDate = viewModel.movie?.released else { return }
         movieReleaseDate.text = "Released in 2024" //"Released in: \(releaseDate)"
         
-        movieReleaseDate.font = .systemFont(ofSize: 50, weight: .light)
+        movieReleaseDate.font = .systemFont(ofSize: 25, weight: .light)
         movieReleaseDate.textAlignment = .center
         movieReleaseDate.numberOfLines = 0
     }
+}
+
+extension MovieSearchListTvViewcontroller: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width:collectionView.frame.height, height: collectionView.frame.height/1.2)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.movies.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCell
+        cell.contentView.backgroundColor = .systemBlue
+        if let image = viewModel.movies[indexPath.row].posterImage {
+            cell.imageView.image = UIImage(data: image)
+        }
+        cell.titleLabel.text = viewModel.movies[indexPath.row].title
+        return cell
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, shouldUpdateFocusIn context: UICollectionViewFocusUpdateContext) -> Bool {
+//        return true
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+//        
+//    }
 }
 
 extension MovieSearchListTvViewcontroller: UITableViewDelegate, UITableViewDataSource {
@@ -192,6 +241,7 @@ extension MovieSearchListTvViewcontroller: MainMenuViewControllerDelegate {
     }
     
     func updateMovieList() {
+        self.movieCollectionView.reloadData()
         self.searchHistoryTableView.reloadData()
     }
 }
@@ -239,10 +289,9 @@ class GradientView: UIView {
         super.init(frame: CGRect.zero)
         let gradientLayer = layer as! CAGradientLayer
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gradientLayer.endPoint = CGPoint(x: 0.0, y: 0.0)
         gradientLayer.colors = [UIColor.black.cgColor,
                                 UIColor.clear.cgColor]
-//        self.alpha = 0.9
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -255,4 +304,44 @@ class GradientView: UIView {
                                 UIColor.gray.cgColor,
                                 UIColor.clear.cgColor]
     }
+}
+
+class CustomCell: UICollectionViewCell {
+    let imageView = UIImageView()
+    let titleLabel = UILabel()
+    let containerView = UIImageView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
+        contentView.addSubviews([containerView])
+        containerView.addSubviews([imageView, titleLabel])
+        
+        containerView.backgroundColor = .systemGreen
+        containerView.layer.borderColor = UIColor.systemPurple.cgColor
+        containerView.layer.borderWidth = 5.0
+        containerView.layer.cornerRadius = 25
+        containerView.sizeToSuperview()
+        imageView.sizeToSuperview()
+        imageView.image = UIImage(systemName: "star")
+        titleLabel.text = "Title"
+        titleLabel.textAlignment = .center
+        titleLabel.widthToSuperview()
+            .bottomToSuperview()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+            if context.nextFocusedView == self {
+                containerView.layer.borderColor = UIColor.white.cgColor
+                containerView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+//                titleLabel.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+            } else {
+                containerView.layer.borderColor = UIColor.clear.cgColor
+                containerView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                titleLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+        }
 }

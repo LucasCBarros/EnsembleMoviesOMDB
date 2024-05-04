@@ -74,7 +74,7 @@ extension FavoriteMoviesTvViewController: ViewCodable {
         movieTitle.text = title
         
         moviePosterImage.image = UIImage(systemName: "star")
-        viewModel.fetchMoviePoster()
+        viewModel.fetchMoviePoster(for: "https://img.omdbapi.com/?apikey=36d78389&i=tt0096895")
         guard let releaseDate = viewModel.movie?.released else { return }
         movieReleaseDate.text = "Released in: \(releaseDate)"
         
