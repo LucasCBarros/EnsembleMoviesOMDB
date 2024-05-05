@@ -96,6 +96,10 @@ extension FavoriteMoviesTvViewController: UITableViewDelegate, UITableViewDataSo
 }
 
 extension FavoriteMoviesTvViewController: MainMenuViewControllerDelegate {
+    func updateImageView(with movieIndex: Int) {
+        
+    }
+    
     func updateImageView(with imageData: Data) {
         self.moviePosterImage.image = UIImage(data: imageData)
     }

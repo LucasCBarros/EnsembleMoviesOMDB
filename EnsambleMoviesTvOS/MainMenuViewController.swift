@@ -179,6 +179,7 @@ import QuickUIKitDevTools
 
 protocol MainMenuViewControllerDelegate {
     func updateImageView(with imageData: Data)
+    func updateImageView(with movieIndex: Int)
     func updateMovieList()
     func alertError(title: String, description: String)
 }
@@ -187,6 +188,7 @@ protocol MainMenuViewModelProtocol {
     var movies: [Movie] { get set }
     var movie: Movie? { get set }
     var moviePoster: UIImage? { get set }
+    var searchHistory: [String] { get set }
     var delegate: MainMenuViewControllerDelegate? { get set }
 
     func fetchMoviePoster(for posterUrl: String)
@@ -198,6 +200,7 @@ class MainMenuViewModel: MainMenuViewModelProtocol {
     var movies: [Movie]
     var movie: Movie?
     var moviePoster: UIImage?
+    var searchHistory: [String] = []
 
     var delegate: MainMenuViewControllerDelegate?
     var networkManager: NetworkManagerProtocol? = NetworkManager()
