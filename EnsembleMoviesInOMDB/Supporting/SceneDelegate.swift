@@ -23,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let viewModel = MovieSearchListViewModel(networkManager: networkManager)
         let viewController = MovieSearchListViewController(viewModel: viewModel)
         let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.overrideUserInterfaceStyle = .light
         window.rootViewController = navigationController
 
         self.window = window

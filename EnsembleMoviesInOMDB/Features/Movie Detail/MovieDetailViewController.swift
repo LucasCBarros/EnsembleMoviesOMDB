@@ -16,7 +16,6 @@ class MovieDetailViewController: UIViewController {
 
     // MARK: Properties
     var viewModel: MovieDetailViewModelProtocol
-    var isDarkMode: Bool = false
 
     // MARK: Life Cycle
     override func viewDidLoad() {
@@ -37,9 +36,9 @@ class MovieDetailViewController: UIViewController {
 
     // MARK: Actions
     @objc func tapToggleDarkModeFeatureButton() {
-        self.navigationController?.overrideUserInterfaceStyle = isDarkMode ? .light : .dark
-        navigationItem.rightBarButtonItem?.title = isDarkMode ? "Dark Mode" : "Light Mode"
-        isDarkMode.toggle()
+        guard let isDarkMode = self.navigationController?.overrideUserInterfaceStyle.rawValue else { return }
+        navigationItem.rightBarButtonItem?.title = isDarkMode == 1 ? "Light Mode" : "Dark Mode"
+        self.navigationController?.overrideUserInterfaceStyle = isDarkMode == 1 ? .dark : .light
     }
 }
 
@@ -104,7 +103,8 @@ extension MovieDetailViewController: ViewCodable {
         guard let title = viewModel.movie?.title else { return }
         movieTitleLabel.text = title
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Dark Mode",
+        guard let isDarkMode = self.navigationController?.overrideUserInterfaceStyle.rawValue else { return }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: isDarkMode == 1 ? "Dark Mode" : "Light Mode",
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(tapToggleDarkModeFeatureButton))
