@@ -11,6 +11,7 @@ import UIKit
 protocol NetworkManagerProtocol {
     func fetchMovies(withTitle title: String, completion: @escaping (Result<Search, FetchError>) -> Void)
     func fetchMoviePoster(imageURL: String, completion: @escaping (Result<Data, FetchError>) -> Void)
+    func fetchBackgroundImage(completion: @escaping (Result<Data, FetchError>) -> Void)
 }
 
 // MARK: - API calls
@@ -70,6 +71,21 @@ class NetworkManager: NetworkManagerProtocol {
     func fetchMoviePoster(imageURL: String, completion: @escaping (Result<Data, FetchError>) -> Void) {
         guard let url = URL(string: imageURL) else { return }
 
+        session.dataTask(with: url) { data, _, error in
+            if error != nil {
+                completion(.failure(FetchError.invalidResponse))
+                return }
+            guard let data = data, !data.isEmpty else {
+                completion(.failure(FetchError.invalidData))
+                return }
+
+            completion(.success(data))
+        }.resume()
+    }
+    
+    func fetchBackgroundImage(completion: @escaping (Result<Data, FetchError>) -> Void) {
+        guard let url = URL(string: "https://picsum.photos/200/300") else { return }
+        
         session.dataTask(with: url) { data, _, error in
             if error != nil {
                 completion(.failure(FetchError.invalidResponse))

@@ -10,6 +10,7 @@ import QuickUIKitDevTools
 
 class MovieDetailViewController: UIViewController {
     // MARK: Views
+    let detailBackgroundImage = UIImageView()
     let movieTitleLabel = UILabel()
     let movieReleasedDateLabel = UILabel()
     let moviePosterView = UIImageView()
@@ -44,8 +45,9 @@ class MovieDetailViewController: UIViewController {
 
 // MARK: - Delegate Methods
 extension MovieDetailViewController: MovieDetailViewControllerDelegate {
-    func updateImageView(with imageData: Data) {
+    func updateImageView(with imageData: Data, and backgroundImageData: Data) {
         self.moviePosterView.image = UIImage(data: imageData)
+        self.detailBackgroundImage.image = UIImage(data: backgroundImageData)
     }
 
     func alertError(title: String, description: String) {
@@ -59,6 +61,7 @@ extension MovieDetailViewController: ViewCodable {
     // MARK: Hierarchy
     func addHierarchy() {
         self.view.addSubviews([
+            detailBackgroundImage,
             moviePosterView,
             movieTitleLabel,
             movieReleasedDateLabel])
@@ -66,6 +69,9 @@ extension MovieDetailViewController: ViewCodable {
 
     // MARK: Constraints
     func addConstraints() {
+        detailBackgroundImage
+            .sizeToSuperview()
+        
         moviePosterView
             .topToSuperview(toSafeArea: true)
             .centerHorizontalToSuperView()
@@ -86,6 +92,8 @@ extension MovieDetailViewController: ViewCodable {
     // MARK: Configurations
     func additionalConfig() {
         viewModel.fetchMoviePoster()
+        
+//        detailBackgroundImage.image = UIImage(systemName: "globe")
 
         movieTitleLabel.numberOfLines = 0
         movieTitleLabel.textAlignment = .center

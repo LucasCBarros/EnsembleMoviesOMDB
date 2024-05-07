@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: Movie Detail Delegate
 protocol MovieDetailViewControllerDelegate: AnyObject {
-    func updateImageView(with imageData: Data)
+    func updateImageView(with imageData: Data, and backgroundImageData: Data)
     func alertError(title: String, description: String)
 }
 
@@ -44,21 +44,51 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
     // MARK: Methods
     func fetchMoviePoster() {
         guard let posterURL = movie?.poster else { return }
+        var imageFetchedData: Data?
+        var backgroundFetchedData: Data?
+        var errorFetched: FetchError?
 
+        let group = DispatchGroup()
+        
+        group.enter()
         networkManager.fetchMoviePoster(imageURL: posterURL, completion: { response in
             switch response {
             case .success(let imageData):
-                self.updateViewWithImage(imageData)
+                imageFetchedData = imageData
+                group.leave()
             case .failure(let error):
-                self.updateViewWithError(error)
+                errorFetched = error
+                group.leave()
             }
         })
+        
+        group.enter()
+        networkManager.fetchBackgroundImage(completion: { response in
+            switch response {
+            case .success(let imageData):
+                backgroundFetchedData = imageData
+                group.leave()
+            case .failure(let error):
+                errorFetched = error
+                group.leave()
+            }
+        })
+        
+        group.notify(queue: .main) {
+            if let image = imageFetchedData,
+               let background = backgroundFetchedData,
+               errorFetched == nil {
+                self.updateViewWithImage(image, and: background)
+            } else {
+                self.updateViewWithError(errorFetched ?? FetchError.invalidData)
+            }
+        }
     }
 
-    func updateViewWithImage(_ imageData: Data) {
+    func updateViewWithImage(_ imageData: Data, and backgroundImageData: Data) {
         // Update views in main thread
         DispatchQueue.main.async {
-            self.delegate?.updateImageView(with: imageData)
+            self.delegate?.updateImageView(with: imageData, and: backgroundImageData)
         }
     }
 
