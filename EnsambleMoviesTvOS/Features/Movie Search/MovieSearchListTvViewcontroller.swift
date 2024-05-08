@@ -141,8 +141,8 @@ extension MovieSearchListTvViewcontroller: ViewCodable {
         
         searchTextField.placeholder = "Search movies"
         searchTextField.font = .systemFont(ofSize: 30)
-        
-        searchTextField.addTarget(self, action: #selector(MovieSearchListTvViewcontroller.textFieldDidChange(_:)), for: .editingDidEndOnExit)
+        searchTextField.delegate = self
+//        searchTextField.addTarget(self, action: #selector(MovieSearchListTvViewcontroller.textFieldDidChange(_:)), for: .editingDidEndOnExit)
         
         // Right
         movieTitle.font = .systemFont(ofSize: 50, weight: .heavy)
@@ -156,7 +156,7 @@ extension MovieSearchListTvViewcontroller: ViewCodable {
         movieReleaseDate.numberOfLines = 0
     }
     
-    @objc func textFieldDidChange(_ textField: UITextField) {
+    func textFieldDidChange() {
         if let search = searchTextField.text,
            !search.isEmpty {
             viewModel.searchHistory.append(search)
@@ -240,5 +240,11 @@ extension MovieSearchListTvViewcontroller: MovieSearchListTvViewControllerDelega
         moviePosterImage.image = UIImage(data: imageData)
         movieTitle.text = selectedMovie.title
         movieReleaseDate.text = selectedMovie.released
+    }
+}
+
+extension MovieSearchListTvViewcontroller: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        textFieldDidChange()
     }
 }
