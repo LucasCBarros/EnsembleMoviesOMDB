@@ -35,9 +35,9 @@ class MovieSearchListTvViewcontroller: UIViewController {
         layout.minimumLineSpacing = 25
         return UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
     }()
-
+    
     // MARK: - Properties
-    var viewModel: MainMenuViewModelProtocol = MainMenuViewModel()
+    var viewModel: MovieSearchListTvViewModelProtocol = MovieSearchListTvViewModel()
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -48,27 +48,27 @@ class MovieSearchListTvViewcontroller: UIViewController {
     }
     
     // MARK: Actions
-
+    
 }
 
 // MARK: - Setup UI
 extension MovieSearchListTvViewcontroller: ViewCodable {
     func addHierarchy() {
         self.view.addSubviews([movieListContainerView,
-                              movieSelectionContainerView])
+                               movieSelectionContainerView])
         
         movieListContainerView.addSubviews([searchTextField,
-                                             searchHistoryTableView])
+                                            searchHistoryTableView])
         
         movieSelectionContainerView.addSubviews([moviePosterImage,
                                                  movieDetailsContainerView,
-                                              movieCollectionView])
+                                                 movieCollectionView])
         
         movieDetailsContainerView.addSubviews([movieDetailsContainerGradientBackground,
-            movieTitle,
-                                              movieReleaseDate])
+                                               movieTitle,
+                                               movieReleaseDate])
     }
-
+    
     func addConstraints() {
         // Left side
         movieListContainerView
@@ -82,13 +82,13 @@ extension MovieSearchListTvViewcontroller: ViewCodable {
             .leadingToSuperview(25)
             .heightTo(50)
             .widthToSuperview(-50)
-
+        
         searchHistoryTableView
             .topToBottom(of: searchTextField, margin: 25)
             .widthToSuperview(-50)
             .bottomToSuperview()
             .centerHorizontalToSuperView()
-
+        
         // Right side
         movieSelectionContainerView
             .topToSuperview()
@@ -117,8 +117,8 @@ extension MovieSearchListTvViewcontroller: ViewCodable {
         movieTitle
             .widthToSuperview()
             .bottomToTop(of: movieReleaseDate)
-            
-       movieReleaseDate
+        
+        movieReleaseDate
             .widthToSuperview()
             .bottomToSuperview(20)
         
@@ -129,7 +129,7 @@ extension MovieSearchListTvViewcontroller: ViewCodable {
             .heightTo(self.view.frame.height/3)
             .bottomToSuperview()
     }
-
+    
     // MARK: additionalConfig
     func additionalConfig() {
         searchHistoryTableView.dataSource = self
@@ -138,16 +138,16 @@ extension MovieSearchListTvViewcontroller: ViewCodable {
         movieCollectionView.dataSource = self
         movieCollectionView.delegate = self
         movieCollectionView.register(CustomCell.self, forCellWithReuseIdentifier: "cell")
-
+        
         searchTextField.placeholder = "Search movies"
         searchTextField.font = .systemFont(ofSize: 30)
         
         searchTextField.addTarget(self, action: #selector(MovieSearchListTvViewcontroller.textFieldDidChange(_:)), for: .editingDidEndOnExit)
-
+        
         // Right
         movieTitle.font = .systemFont(ofSize: 50, weight: .heavy)
         movieTitle.textAlignment = .center
-
+        
         movieTitle.text = "title"
         movieReleaseDate.text = "Released in 2024"
         
@@ -214,11 +214,11 @@ extension MovieSearchListTvViewcontroller: UITableViewDelegate, UITableViewDataS
 }
 
 // MARK: - Delegate Methods
-extension MovieSearchListTvViewcontroller: MainMenuViewControllerDelegate {
+extension MovieSearchListTvViewcontroller: MovieSearchListTvViewControllerDelegate {
     func updateImageView(with imageData: Data) {
         self.moviePosterImage.image = UIImage(data: imageData)
     }
-
+    
     func alertError(title: String, description: String) {
         popAlert(title: title, message: description)
     }
@@ -241,72 +241,4 @@ extension MovieSearchListTvViewcontroller: MainMenuViewControllerDelegate {
         movieTitle.text = selectedMovie.title
         movieReleaseDate.text = selectedMovie.released
     }
-}
-
-class GradientView: UIView {
-    override open class var layerClass: AnyClass {
-       return CAGradientLayer.classForCoder()
-    }
-
-    init() {
-        super.init(frame: CGRect.zero)
-        let gradientLayer = layer as! CAGradientLayer
-        gradientLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
-        gradientLayer.endPoint = CGPoint(x: 0.0, y: 0.0)
-        gradientLayer.colors = [UIColor.black.cgColor,
-                                UIColor.clear.cgColor]
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        let gradientLayer = layer as! CAGradientLayer
-        gradientLayer.startPoint = CGPoint(x: 1.0, y: 1.0)
-        gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
-        gradientLayer.colors = [UIColor.black.cgColor,
-                                UIColor.darkGray.cgColor,
-                                UIColor.gray.cgColor,
-                                UIColor.clear.cgColor]
-    }
-}
-
-class CustomCell: UICollectionViewCell {
-    let imageView = UIImageView()
-    let titleLabel = UILabel()
-    let containerView = UIImageView()
-    var delegate: MainMenuViewControllerDelegate?
-    
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
-        contentView.addSubviews([containerView])
-        containerView.addSubviews([imageView, titleLabel])
-        
-        containerView
-            .sizeToSuperview()
-        imageView
-            .sizeToSuperview()
-        titleLabel
-            .widthToSuperview()
-            .bottomToSuperview()
-        
-        containerView.layer.borderColor = UIColor.black.cgColor
-        containerView.layer.borderWidth = 5.0
-        imageView.layer.cornerRadius = 25
-        titleLabel.textAlignment = .center
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-        self.delegate?.updateImageView(with: self.tag)
-            if context.nextFocusedView == self {
-                containerView.layer.borderColor = UIColor.white.cgColor
-                containerView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-            } else {
-                containerView.layer.borderColor = UIColor.clear.cgColor
-                containerView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                titleLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }
-        }
 }

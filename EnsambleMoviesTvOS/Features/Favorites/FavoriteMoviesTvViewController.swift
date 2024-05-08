@@ -17,7 +17,7 @@ class FavoriteMoviesTvViewController: UIViewController {
     var movieReleaseDate = UILabel()
 
     // MARK: Properties
-    let viewModel: MainMenuViewModelProtocol = MainMenuViewModel()
+    let viewModel: MovieSearchListTvViewModelProtocol = MovieSearchListTvViewModel()
     
     // MARK: Life Cycle
     override func viewDidLoad() {
@@ -95,7 +95,7 @@ extension FavoriteMoviesTvViewController: UITableViewDelegate, UITableViewDataSo
     }
 }
 
-extension FavoriteMoviesTvViewController: MainMenuViewControllerDelegate {
+extension FavoriteMoviesTvViewController: MovieSearchListTvViewControllerDelegate {
     func updateImageView(with movieIndex: Int) {
         
     }
