@@ -28,7 +28,7 @@ class NetworkManager: NetworkManagerProtocol {
     }
 
     // MARK: FetchMovies
-    /// Fetches a Search object containining movies from endpoint
+    /// Fetches a Search object containing movies from endpoint
     ///
     /// - Parameters:
     ///     - Title: String contained in the desired movie title
@@ -41,10 +41,13 @@ class NetworkManager: NetworkManagerProtocol {
         session.dataTask(with: url) { data, _, error in
             if error != nil {
                 completion(.failure(FetchError.invalidResponse))
-                return }
+                return
+            }
+            
             guard let data = data, !data.isEmpty else {
                 completion(.failure(FetchError.invalidData))
-                return }
+                return
+            }
 
             do {
                 let search = try self.decoder.decode(Search.self, from: data)

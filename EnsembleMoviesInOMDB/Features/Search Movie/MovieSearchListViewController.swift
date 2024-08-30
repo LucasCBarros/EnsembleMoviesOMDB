@@ -19,6 +19,7 @@ class MovieSearchListViewController: UIViewController {
     var viewModel: MovieSearchListViewModelProtocol
     var shouldSearch: Bool = true
     var withCustomCell: Bool = true
+    var timer: Timer?
 
     // MARK: Life Cycle
     override func viewDidLoad() {
@@ -38,6 +39,15 @@ class MovieSearchListViewController: UIViewController {
     }
 
     // MARK: Actions
+    @objc func executeAction() {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 1.0,
+                                     target: self,
+                                     selector: #selector(self.tapSearchButton),
+                                     userInfo: nil,
+                                     repeats: false)
+    }
+    
     @objc func tapSearchButton() {
         guard let searchText = searchTextField.text else { return }
         viewModel.fetchMovies(with: searchText)
@@ -147,21 +157,25 @@ extension MovieSearchListViewController {
     }
 
     func additionalSearchBarConfig() {
-            searchTextField.placeholder = "Search movie by title"
-            searchTextField.autocapitalizationType = .none
-            searchTextField.leftViewMode = .always
-            searchTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
-            searchTextField.backgroundColor = .systemBackground
-            searchTextField.textColor = .label
-            searchTextField.layer.cornerRadius = 15
-            searchTextField.layer.borderWidth = 1
-            searchTextField.layer.borderColor = UIColor.gray.cgColor
-
-            searchButton.setTitle("Search", for: .normal)
-            searchButton.setTitleColor(.white, for: .normal)
+        searchTextField.placeholder = "Search movie by title"
+        searchTextField.autocapitalizationType = .none
+        searchTextField.leftViewMode = .always
+        searchTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        searchTextField.backgroundColor = .systemBackground
+        searchTextField.textColor = .label
+        searchTextField.layer.cornerRadius = 15
+        searchTextField.layer.borderWidth = 1
+        searchTextField.layer.borderColor = UIColor.gray.cgColor
+        
+        searchTextField.addTarget(self,
+                                  action: #selector(executeAction),
+                                  for: .editingChanged)
+        
+        searchButton.setTitle("Search", for: .normal)
+        searchButton.setTitleColor(.white, for: .normal)
         searchButton.backgroundColor = .systemBlue
-            searchButton.layer.cornerRadius = 5
-            searchButton.addTarget(self, action: #selector(tapSearchButton), for: .touchUpInside)
+        searchButton.layer.cornerRadius = 5
+        searchButton.addTarget(self, action: #selector(tapSearchButton), for: .touchUpInside)
     }
 }
 
